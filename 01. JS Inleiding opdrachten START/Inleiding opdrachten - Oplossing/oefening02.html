@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="nl">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="#">
+    <title>Oefening 2</title>
+</head>
+
+<body>
+    <pre>
+    <script>
+        //variabelen declareren
+        let getal = 0;
+        let teller = 10;
+        let naam = "Jan";
+        let kleiner = true;
+        let ok = false;
+
+        getal += 10;
+        temp = "getal = " + getal +'\n';
+
+        teller++;
+        temp+='teller = ' + teller+'\n';
+
+        getal += teller;
+        temp+='getal + teller = ' + getal+'\n';
+
+        getal++;
+        temp+='getal++ = ' + getal+'\n';
+
+        kleiner = (getal < 20);
+        temp+='kleiner = ' + kleiner+'\n';
+
+        ok = (naam != "jan") && kleiner;
+        temp+='ok = ' + ok+'\n';
+
+        document.write('<pre>',temp,'</pre>')
+    </script>
+    </pre>
+</body>
+
+</html>

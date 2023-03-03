@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>onkeyup</title>
+    <link rel="shortcut icon" href="#">
+</head>
+
+<body>
+    <input type="text" id="mijnInput">
+    <!--  onkeyup="mijnFunctie()"  -->
+    <p id="resultaat"></p>
+
+
+    <script>
+        // Declaratie
+        const input = document.getElementById("mijnInput");
+        const res = document.getElementById("resultaat");
+
+        // Arrow function
+        let mijnFunctie = (erbij) => {
+            res.innerHTML = input.value;
+
+            // Logging
+            console.log(event.code, event.keyCode);
+        }
+
+        // Event
+        input.addEventListener("keyup", mijnFunctie, false);
+
+        /* function mijnFunctie(event) {
+                  res.innerHTML = input.value;
+
+                  // Logging
+                  console.log(event.code, event.keyCode);
+        } */
+    </script>
+</body>
+
+</html>

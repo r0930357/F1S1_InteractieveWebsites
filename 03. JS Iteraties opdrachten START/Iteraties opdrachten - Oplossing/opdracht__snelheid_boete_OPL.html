@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="nl">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les 3: Oefening 6</title>
+    <link rel="shortcut icon" href="#">
+</head>
+
+<body>
+    <script>
+        let snelheid = 0,
+            boete = 0;
+
+        snelheid = parseInt(prompt("Wat was de snelheid:", "0"));
+
+        if (50 < snelheid) {
+            boete = 125;
+
+            while (snelheid > 50) {
+                boete += 25;
+                snelheid--;
+            }
+            alert("Foei, u krijgt een boete van " + boete);
+        } else {
+            alert("Proficiat, u bent een van de weinige die niet te hard rijdt!");
+        }
+    </script>
+
+</body>
+
+</html>

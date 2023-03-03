@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="nl">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les 3: Oefening 3</title>
+    <link rel="shortcut icon" href="#">
+</head>
+
+<body>
+    <script>
+        let aantalLeeuwen = 50,
+            jaren = 0;
+
+        do {
+            //parseInt wordt gebruikt om af te ronden
+            document.write(jaren + ": ");
+            document.writeln(parseInt(aantalLeeuwen) + "<br />");
+            aantalLeeuwen = aantalLeeuwen * 1.15;
+            jaren++;
+        } while (aantalLeeuwen < 1000)
+    </script>
+
+</body>
+
+</html>
