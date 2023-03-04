@@ -76,7 +76,31 @@
         </div>
     </main>
     <script>
-        // code..
+
+        // Declareren van variabelen en toevoegen van event listeners
+        let input_product = document.querySelector("#product");
+        let result = document.querySelector("#result");
+        let firstTime = true;
+
+        // Functies
+        function addToList(invoer) {
+            let li = document.createElement("li");
+            li.innerHTML = invoer;
+            result.appendChild(li);
+        }
+
+        function addProduct() {
+            if (firstTime) {
+                result.innerHTML = "";
+                firstTime = false;
+            }
+            let product = input_product.value;
+            if (product != "") {
+                addToList(product)
+            }
+            input_product.value = "";
+        }
+
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous">
     </script>
