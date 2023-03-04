@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let personen = ['Niels', 200, false];
+
+        // Element toevoegen aan de array -> push
+        personen.push ('Hamburgers');
+        console.log(personen);
+
+        // Door de array loopen met een for loop
+        for (let i = 0; i < personen.length; i++) {
+            // Toon de array in de console
+            console.log(personen[i]);
+            // Toon de array in de browser
+            document.write('<p>' + personen[i] + '</p>')
+        }
+
+        // Door de array loopen met een for each loop
+        personen.forEach(element => {
+            console.log(element)
+        });
+
+    </script>
+</body>
+</html>

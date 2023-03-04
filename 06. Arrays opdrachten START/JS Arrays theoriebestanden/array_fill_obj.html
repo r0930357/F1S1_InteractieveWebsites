@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array fill</title>
+    <link rel="shortcut icon" href="#">
+</head>
+
+<body>
+    <p id="resultaat"></p>
+
+    <script>
+        // Fill
+        // Werkt goed bij nummers, strings and booleans
+
+        // We initialiseren een array van 10 elementen met nullen
+        let simpelArray = new Array(10).fill(0);
+        console.log(simpelArray);
+
+        // We initialiseren een array van 10 elementen met een lege string ''
+        // Daarna vullen we deze vanaf de 3e index (incl.) tot de laatste (ecxl.)
+        let stringArray = new Array(10).fill('');
+        stringArray.fill('test', 3, stringArray.length);
+        console.log(stringArray);
+
+
+        // We vullen een array met (hetzelfde) object
+        // Ieder element van de array krijgt dezelfde referentie naar 1 object  
+        let objectRefArray = new Array(3).fill({
+            'type': 'student'
+        });
+        console.log(objectRefArray);
+
+        // We wijzigen het eerste object => alle elementen wijzigen
+        objectRefArray[0].type = 'docent';
+        console.log(objectRefArray);
+
+        // OPLOSSING
+        // Op deze manier vullen we een array met 3 lege (null) elementen
+        // De methode .map zorgt ervoor dat we voor in ieder element een (apart) object {} bewaren
+        let objectUniqueArray = new Array(3).fill(null).map(() => ({
+            'type': 'student'
+        }));
+        console.log(objectUniqueArray);
+
+        objectUniqueArray[0].type = 'docent';
+        console.log(objectUniqueArray);
+
+        /* 
+            // Alternatieve methode via Array.from  
+            let objectUniqueAlternatiefArray = Array.from({
+                length: 10
+            }, () => ({
+                'type': 'student'
+            }))
+            console.log(objectUniqueAlternatiefArray);
+        */
+
+        let fruits = ['Apple', 'Banana']
+        fruits.forEach(function(item, index, array) {
+            console.log(index, item)
+        })
+    </script>
+</body>
+
+</html>
