@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="nl">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PE Opdracht - Formulier</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+
+<!-- Constructie van body in HTML-code -->
+<body>
+  <!-- Een div "main" wordt aangesproken in Bootstrap met de klasse "container". -->
+  <main class="container">
+
+    <h1>Registreer</h1>
+    <p class="lead"> Meld je aan bij Anoroc Services, wij beschermen jouw software tegen malware!</p>
+    <div class="row">
+
+      <!-- De pagina is verdeeld in 2 kolommen. Een linker kolom van 8 met het formulier. Een rechterkolom van 4 met daarin de meldingen. -->
+      <!-- De linker kolom wordt gedefinieerd met de klasse "col-md-8". -> Deze heeft een breedte van 8 -->
+      <div class="col-md-8">
+        <!-- Een formulier wordt aangesproken met de klasse "row g-3" -> Tussen elke regel wordt een rijspatie van 3 voorzien. -->
+        <form class="row g-3">
+          
+          <!-- Input-veld: "Voornaam" -->
+          <div class="col-md-6">
+            <label for="voornaam" class="form-label">Voornaam</label>
+            <input type="text" class="form-control" id="voornaam" placeholder="Uw voornaam" required>
+          </div>
+          <!-- Input-veld: "Naam" -->
+          <div class="col-md-6">
+            <label for="naam" class="form-label">Naam</label>
+            <input type="text" class="form-control" id="naam" placeholder="Uw naam" required>
+          </div>
+
+          <!-- Input-veld: "Gebruikersnaam" -->
+          <div class="col-md-6">
+            <label class="form-label" for="gebruikersnaam">Gebruikersnaam</label>
+            <!-- Het @-symbool wordt aan de linkerkant van het input-veld "Gebruikersnaam" voorzien -->
+            <div class="input-group">
+              <div class="input-group-text">@</div>
+              <input type="text" class="form-control" id="gebruikersnaam" placeholder="u911236" required>
+            </div>
+          </div>
+          <!-- Input-veld: "E-mailadres" -->
+          <div class="col-md-6">
+            <label for="email" class="form-label">E-mailadres</label>
+            <input type="text" class="form-control" id="email" placeholder="mail@example.be">
+          </div>
+
+          <!-- Input-veld "Wachtwoord" -->
+          <div class="col-md-6">
+            <label for="wachtwoord" class="form-label">Wachtwoord</label>
+            <input type="text" class="form-control" id="wachtwoord">
+          </div>
+          <!-- Input-veld "Herhaal wachtwoord" -->
+          <div class="col-md-6">
+            <label for="herhaalWachtwoord" class="form-label">Herhaal wachtwoord</label>
+            <input type="text" class="form-control" id="herhaalWachtwoord">
+          </div>
+
+          <!-- Input-veld "Adres" -->
+          <div class="col-md-12">
+            <label for="adres" class="form-label">Adres</label>
+            <input type="text" class="form-control" id="adres" required>
+          </div>
+
+          <!-- Input-veld "Land" -->
+          <div class="col-md-5">
+            <label for="land" class="form-label">Land</label>
+            <select id="land" class="form-select" required>
+              <option selected>Kies een land</option>
+              <option>...</option>
+            </select>
+          </div>
+          <!-- Input-veld "Provincie" -->
+          <div class="col-md-4">
+            <label for="provincie" class="form-label">Provincie</label>
+            <select id="provincie" class="form-select" required>
+              <option selected>Kies een provincie</option>
+              <option>...</option>
+            </select>
+          </div>
+          <!-- Input-veld "Poscode" -->
+          <div class="col-md-3">
+            <label for="inputZip" class="form-label">Zip</label>
+            <input type="text" class="form-control" id="inputZip">
+          </div>
+
+          <hr>
+
+          <!-- Sectie: "Hou me op de hoogte" -->
+          <div class="col-md-7">
+            <h2>Hou me op de hoogte</h2>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="nieuwsbrief">
+              <label class="form-check-label" for="nieuwsbrief">
+                Inschrijven voor onze nieuwsbrief
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="algemeneVoorwaarden" checked>
+              <label class="form-check-label" for="algemeneVoorwaarden">
+                Ik ga akkoord met de algemene voorwaarden.
+              </label>
+            </div>
+          </div>
+          <!-- Sectie: "Betaling" -->
+          <div class="col-md-5">
+            <h2>Betaling</h2>
+            <!-- Sectie keuez: "Banking app" -->
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+              <label class="form-check-label" for="exampleRadios1">
+                Banking app
+              </label>
+            </div>
+            <!-- Sectie keuez: "Overschrijving" -->
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+              <label class="form-check-label" for="exampleRadios2">
+                Overschrijving
+              </label>
+            </div>
+            <!-- Sectie keuez: "Visa card" -->
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+              <label class="form-check-label" for="exampleRadios2">
+                Visa card
+              </label>
+            </div>
+            <!-- Sectie keuez: "Paypal" -->
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+              <label class="form-check-label" for="exampleRadios2">
+                Paypal
+              </label>
+            </div>
+          </div>
+
+          <hr>
+
+          <!-- De knop "Verzenden" onderaan het formulier-->
+          <div class="d-grid gap-2">
+            <button class="btn btn-primary" type="button" id="submitButton"> <strong>Verzenden</strong> </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- De linker kolom wordt gedefinieerd met de klasse "col-md". -> Deze vult de resterende breedte op aan de rechter kant van het scherm -->
+      <div class="col-md">
+        <!-- Rode kader -> Indien er velden niet correct ingevuld zijn worden er waarschuwingen weergegeven. -->
+        <div class="alert alert-danger" role="alert">
+          <h5>Yikes, errors...</h5> 
+        </div>
+        <!-- Groene kader -> Indien alle velden correct zijn ingevuld geeft deze een melding weer. -->
+        <div class="alert alert-success" role="alert">
+          <h5>Goed gedaan!</h5> 
+        </div>
+        <!-- Licht blauiwe kader -> Dit heeft betrekking tot de geselecteerde betaalwijze. -->
+        <div class="alert alert-info" role="alert">
+          <h5>Betalingswijze</h5> 
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"></script>
+    <script>
+
+      let submitKnop = document.getElementById('submitButton')
+      let input_voornaam = document.getElementById('voornaam')
+      let errors = [];
+
+      // getElementById best vervangen door querySelector.
+      // querySelector is veel krachtiger en kan ook op classes werken
+      // bij id = (#id) , bij class = (.class)
+
+      submitKnop.addEventListener('click', () => {
+        geenIdeeEerkijkGezegd();
+      })
+
+      function geenIdeeEerkijkGezegd() {
+        let value = input_voornaam.value;
+        if (value === '') {
+          errors.push('Je hebt geen voornaam ingevuld')
+        }
+
+        let resultaat = '';
+        errors.forEach(element => {
+          resultaat += element + '\n';
+        });
+        // innerhtlm = resultaat => inhoud van de div in de alert zetten
+        alert(resultaat)
+
+    </script>
+</body>
+
+</html>
