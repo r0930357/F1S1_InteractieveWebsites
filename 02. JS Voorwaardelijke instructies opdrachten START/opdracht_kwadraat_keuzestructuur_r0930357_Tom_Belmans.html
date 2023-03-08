@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="nl">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="#">
+    <title>Les 2: Opdracht kwadraat (if - else if)</title>
+</head>
+
+<body>
+    
+    <script>
+        let getal = parseInt(prompt("Geef een getal in"))
+
+        if (getal < 10)
+        {
+            alert("Het getal " + getal + " is kleiner dan 10.")
+        } else if (getal > 20)
+        {
+            alert("Het getal " + getal + " is groter dan 20.")
+        } else if (getal > 10 && getal < 20)
+        {
+            let kwadraat = Math.pow(getal, 2)
+            alert("Het kwadraat van " + getal + " is " + kwadraat +".")
+        }
+    </script>
+</body>
+</html>
