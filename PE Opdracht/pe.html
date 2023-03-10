@@ -7,13 +7,21 @@
   <title>r0930357 - Tom Belmans - PE Opdracht</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+<!-- Interne CSS code -->
+  <style>
+    #error_banner {
+      display: none;
+    }
+  </style>
 </head>
 
 <!-- Constructie van body in HTML-code -->
+
 <body>
   <!-- Een div "main" wordt aangesproken in Bootstrap met de klasse "container". -->
   <main class="container">
-    
+
 
     <h1>Registreer</h1>
     <p class="lead"> Meld je aan bij Anoroc Services, wij beschermen jouw software tegen malware!</p>
@@ -24,7 +32,7 @@
       <div class="col-md-8">
         <!-- Een formulier wordt aangesproken met de klasse "row g-3" -> Tussen elke regel wordt een rijspatie van 3 voorzien. -->
         <form class="row g-3"> <!-- action="" method="post"> -->
-          
+
           <!-- Input-veld: "Voornaam" -->
           <div class="col-md-6">
             <label for="voornaam" class="form-label">Voornaam</label>
@@ -113,7 +121,8 @@
             <h2>Betaling</h2>
             <!-- Sectie keuez: "Banking app" -->
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1"
+                checked>
               <label class="form-check-label" for="exampleRadios1">
                 Banking app
               </label>
@@ -145,7 +154,7 @@
 
           <!-- De knop "Verzenden" onderaan het formulier-->
           <div class="d-grid gap-2">
-            <button class="btn btn-primary btn-lg" type="submit" id="verzendKnop" onclick=toggle(ToonErrorWaarschuwing())> <strong>Verzenden</strong> </button>
+            <button class="btn btn-primary btn-lg" type="submit" id="verzendKnop"> <strong>Verzenden</strong> </button>
           </div>
         </form>
       </div>
@@ -153,60 +162,66 @@
       <!-- De rechter kolom wordt gedefinieerd met de klasse "col-md". -> Deze vult de resterende breedte op aan de rechter kant van het scherm -->
       <div class="col-md">
         <!-- Rode kader -> Indien er velden niet correct ingevuld zijn worden er waarschuwingen weergegeven. -->
-        <div class="alert alert-danger" id="kader_waarschuwing" role="alert" hidden="">
-          <h5>Yikes, errors...</h5> 
-            <p id="errors">
-              <!-- Hier worden de foutmeldingen weergegeven. -->
-            </p>
+        <div class="alert alert-danger" id="error_banner" role="alert">
+          <h5>Yikes, errors...</h5>
+          <p id="errors">
+            <!-- Hier worden de foutmeldingen weergegeven. -->
+          </p>
         </div>
         <!-- Groene kader -> Indien alle velden correct zijn ingevuld geeft deze een melding weer. -->
-        <div class="alert alert-success" id="kader_correctingevuld" role="alert"  hidden="">
-          <h5>Goed gedaan!</h5> 
+        <div class="alert alert-success" role="alert">
+          <h5>Goed gedaan!</h5>
         </div>
         <!-- Licht blauiwe kader -> Dit heeft betrekking tot de geselecteerde betaalwijze. -->
-        <div class="alert alert-info" id="kader_betaalwijze" role="alert"  hidden="">
-          <h5>Betalingswijze</h5> 
+        <div class="alert alert-info" role="alert">
+          <h5>Betalingswijze</h5>
         </div>
       </div>
     </div>
 
-    <!-- Bootstrap Javascript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-      crossorigin="anonymous">
-    </script>
-
-    <!-- Eigen Javascript -->
+    <!-- Javascript -->
+    <!-- Eigen code -->
     <script>
-      
       // getElementById best vervangen door querySelector.
       // querySelector is veel krachtiger en je kan ook met klasses werken.
       // bij id = (#id) , bij class = (.class)
-      
+
       // Declareer de variabelen
-      let submitKnop = document.querySelector('"verzendKnop')
-      let input_voornaam = document.querySelector('"voornaam')
-      let input_achternaam = document.querySelector('"achternaam')
+      let submitKnop = document.querySelector(".verzendKnop")
+      let input_voornaam = document.querySelector(".voornaam")
+      let input_achternaam = document.querySelector(".achternaam")
+      let toonErrorBanner = document.querySelector("#error_banner");
       let errors = [];
 
       // Eventlistener op de submit knop
       submitKnop.addEventListener('click', () => {
-        voornaamVerplicht(), achternaamVerplicht(), ToonErrorWaarschuwing();
-      })
+        toonErrorBanner(), voornaamVerplicht(), achternaamVerplicht();
+      });
 
       // Functies
+      // Functie om de error banner te tonen
+      function toonErrorBanner() {
+        if (toonErrorBanner.style.display === "block") {
+          toonErrorBanner.style.display = "none";
+        } else {
+          toonErrorBanner.style.display = "block";
+        }
+      }
+
       // Functie om te controleren of de voornaam is ingevuld.
       function voornaamVerplicht() {
         let value = input_voornaam.value;
         if (value === '') {
           errors.push('Je hebt geen voornaam ingevuld')
         }
-      
+      }
+
       // Functie om te controleren of de achternaam is ingevuld.
       function achternaamVerplicht() {
-      let value = input_achternaam.value;
-      if (value === '') {
-        errors.push('Je hebt geen achternaam ingevuld')
+        let value = input_achternaam.value;
+        if (value === '') {
+          errors.push('Je hebt geen achternaam ingevuld')
+        }
       }
 
       // als er errors zijn, dan de errors tonen
@@ -215,23 +230,13 @@
         resultaat += element + '\n';
       });
       //innerhtlm = resultaat inhoud van de div in de alert zetten
-      alert(resultaat.innerhtlm)
-      
-      function ToonErrorWaarschuwing() {
-        let toggle = button => {
-        let element = document.querySelector(".alert alert-danger");
-        let hidden = element.getAttribute("hidden");
-
-        if (hidden) {
-          element.setAttribute("hidden", "hidden");
-          //button.innerText = "Hide div";
-        } else {
-          element.removeAttribute("hidden");
-          //button.innerText = "Show div";
-        }
-      }
-    }
-
+      document.write(resultaat.innerhtlm);
     </script>
+
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
+    </script>
+
 </body>
 </html>
