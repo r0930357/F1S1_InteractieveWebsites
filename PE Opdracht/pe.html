@@ -8,16 +8,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 
-<!-- Interne CSS code -->
-  <style>
-    #error_banner {
-      display: none;
-    }
-  </style>
-</head>
-
 <!-- Constructie van body in HTML-code -->
-
 <body>
   <!-- Een div "main" wordt aangesproken in Bootstrap met de klasse "container". -->
   <main class="container">
@@ -94,7 +85,7 @@
           </div>
           <!-- Input-veld "Poscode" -->
           <div class="col-md-3">
-            <label for="Postcode" class="form-label">Postcode</label>
+            <label for="postcode" class="form-label">Postcode</label>
             <input type="text" class="form-control" id="postcode">
           </div>
 
@@ -164,7 +155,7 @@
         <!-- Rode kader -> Indien er velden niet correct ingevuld zijn worden er waarschuwingen weergegeven. -->
         <div class="alert alert-danger" id="error_banner" role="alert">
           <h5>Yikes, errors...</h5>
-          <p id="errors">
+          <p id="foutmeldingen">
             <!-- Hier worden de foutmeldingen weergegeven. -->
           </p>
         </div>
@@ -190,50 +181,132 @@
       let submitKnop = document.querySelector("#verzendKnop")
       let input_voornaam = document.querySelector("#voornaam")
       let input_familienaam = document.querySelector("#familienaam")
+      let input_gebruikersnaam = document.querySelector("#gebruikersnaam")
+      let input_email = document.querySelector("#email")
+      let input_wachtwoord = document.querySelector("#wachtwoord")
+      let input_herhaalWachtwoord = document.querySelector("#herhaalWachtwoord")
+      let input_adres = document.querySelector("#adres")
+      let input_land = document.querySelector("#land")
+      let input_provincie = document.querySelector("#provincie")
+      let input_postcode = document.querySelector("#postcode")
+      let input_algemeneVoorwaarden = document.querySelector("#algemeneVoorwaarden")
+
       let errors = [];
 
-      // Eventlistener op de submit knop
-      submitKnop.addEventListener('click', () => {
-        toonErrorBanner(), voornaamVerplicht(), familienaamVerplicht()
-      });
-
-      // Functies
-      // Functie om de error banner te tonen
-      function toonErrorBanner() {
-        let _toonErrorBanner = document.querySelector("#error_banner");
-        if (_toonErrorBanner.style.display === "block") {
-          _toonErrorBanner.style.display = "none";
-        } else {
-          _toonErrorBanner.style.display = "block";
-        }
-      }
-
-      // Functie om te controleren of de voornaam is ingevuld.
+      // FUNCTIES
+      // Functie om te controleren of het veld "voornaam" is ingevuld.
       function voornaamVerplicht() {
         let value = input_voornaam.value;
         if (value === '') {
           errors.push('Je hebt geen voornaam ingevuld')
-          console.log('Er is geen voornaam ingevuld')
         }
       }
 
-      // Functie om te controleren of de achternaam is ingevuld.
+      // Functie om te controleren of het veld "achternaam" is ingevuld.
       function familienaamVerplicht() {
         let value = input_familienaam.value;
         if (value === '') {
           errors.push('Je hebt geen familienaam ingevuld')
-          console.log('Er is geen familienaam ingevuld')
         }
       }
 
+      // Functie om te controleren of het veld "gebruikersnaam" is ingevuld.
+      function gebruikersnaamVerplicht() {
+        let value = input_gebruikersnaam.value;
+        if (value === '') {
+          errors.push('Je hebt geen gebruikersnaam ingevuld')
+        }
+      }
+
+      // Functie om te controleren of het veld "email" is ingevuld.
+      function emailVerplicht() {
+        let value = input_email.value;
+        if (value === '') {
+          errors.push('Je hebt geen email adres ingevuld')
+        }
+      }
+
+      // Functie om te controleren of het veld "wachtwoord" is ingevuld.
+      function wachtwoordVerplicht() {
+        let value = input_wachtwoord.value;
+        if (value === '') {
+          errors.push('Je hebt geen wachtwoord ingevuld')
+        }
+      }
+      
+      // Functie om te controleren of het veld "adres" is ingevuld.
+      function adresVerplicht() {
+        let value = input_adres.value;
+        if (value === '') {
+          errors.push('Je hebt geen adres ingevuld')
+        }
+      }
+
+      // Functie om te controleren of het veld "land" is ingevuld.
+      function landVerplicht() {
+        let value = input_land.value;
+        if (value === '') {
+          errors.push('Je hebt geen land ingevuld')
+        }
+      }
+
+      // Functie om te controleren of het veld "provincie" is ingevuld.
+      function provincieVerplicht() {
+        let value = input_provincie.value;
+        if (value === '') {
+          errors.push('Je hebt geen geldige provincie ingevuld')
+        }
+      }
+
+      // Functie om te controleren of het veld "postcode" is ingevuld.
+      function postcodeVerplicht() {
+        let value = input_postcode.value;
+        if (value === '') {
+          errors.push('Je hebt geen geldige postcode ingevuld')
+        }
+      }
+
+      // Functie om te controleren of het veld "algemenet voorwaarden" is ingevuld.
+      function algemeneVoorwaardenVerplicht() {
+        let value = input_algemeneVoorwaarden.value;
+        if (value === '') {
+          errors.push('Je hebt geen geldige postcode ingevuld')
+        }
+      }
+
+      // Functie om te controleren of de waarde die ingevuld wordt in veld "postcode" groter of gelijk is aan 1000 en kleiner is dan 10000.
+      function postcodeControle() {
+        let value = input_postcode.value;
+        if (value < 1000 || value > 9999) {
+          errors.push('De waarde van de postcode moet tussen 1000 en 9999 liggen!')
+        }
+      }
+
+      // Functie om te controleren of de waarde die ingevuld wordt in veld "postcode" groter of gelijk is aan 1000 en kleiner is dan 10000.
+      function wachtwoordControle() {
+        let value = input_wachtwoord.value, value2 = input_herhaalWachtwoord.value;
+        if (input_wachtwoord !== input_herhaalWachtwoord) {
+          errors.push('Je wachtwoorden komen niet overeen!')
+        }
+      }
       // als er errors zijn, dan de errors tonen
       let resultaat = '';
-      errors.forEach(element => {
+
+      errors.forEach(toonFoutmeldingen);
+      
+      function toonFoutmeldingen(element) {
         resultaat += element + '\n';
+      }
+
+      document.getElementById("foutmeldingen").innerHTML = resultaat;
+
+      // Eventlistener op de submit knop
+      submitKnop.addEventListener('click', () => {
+        voornaamVerplicht(), familienaamVerplicht(), gebruikersnaamVerplicht(), emailVerplicht(), wachtwoordVerplicht(), adresVerplicht(), landVerplicht(), provincieVerplicht(), postcodeVerplicht(), algemeneVoorwaardenVerplicht(), postcodeControle()
       });
-      //innerhtlm = resultaat inhoud van de div in de alert zetten
-      //document.write(resultaat.innerhtlm);
+
     </script>
+
 
     <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"

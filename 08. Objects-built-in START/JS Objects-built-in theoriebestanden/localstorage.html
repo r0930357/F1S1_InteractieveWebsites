@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="nl">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Storage object</title>
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="shortcut icon" href="#">
+</head>
+
+<body>
+    <main class="container">
+        <h1>Local Storage object</h1>
+
+        <fieldset>
+            <legend>Insert data</legend>
+            <input type="text" id="inputKey" placeholder="Geef een sleutel in...">
+            <input type="text" id="inputValue" placeholder="Geef een waarde in...">
+            <button type="button" id="btnInsert">Toevoegen</button>
+            <button type="button" id="btnClear">LS Wissen</button>
+        </fieldset>
+
+        <h1>Sleutel en waarden Local Storage objecten</h1>
+        <div id="output"></div>
+    </main>
+
+    <script>
+        const inpKey = document.querySelector('#inputKey');
+        const inpVal = document.querySelector('#inputValue');
+        const btnInsert = document.querySelector('#btnInsert');
+        const btnClear = document.querySelector('#btnClear');
+        const result = document.querySelector('#output');
+
+        btnInsert.addEventListener('click', () => {
+            const key = inpKey.value;
+            const value = inpVal.value;
+
+            // Wanneer de key en value niet leeg zijn, toevoegen aan localStorage
+            if (key && value) {
+                localStorage.setItem(key, value);
+                location.reload(); // like the Refresh button
+            }
+        }, false);
+
+        btnClear.addEventListener('click', () => {
+            localStorage.clear();
+            location.reload();
+        }, false);
+
+        // We vullen de div steeds op met de key en value van de localStorage objecten
+        /*
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            const value = localStorage.getItem(key);
+
+            result.innerHTML += `${key}: ${value}<br />`;
+        }
+        */
+
+        for (const key in localStorage) {
+            // Skip built-in properties like length, setItem, etc.
+            if (localStorage.hasOwnProperty(key)) {
+                result.innerHTML += `${key}: ${localStorage.getItem(key)}<br />`;
+            }
+        }
+
+        // Toon in de console telkens alle keys
+        // Object.keys() method returns an array of a given object's own enumerable property names
+        console.log(Object.keys(localStorage));
+    </script>
+</body>
+
+</html>
