@@ -73,7 +73,9 @@
             <label for="land" class="form-label">Land</label>
             <select id="land" class="form-select">
               <option selected>Kies een land</option>
-              <option>...</option>
+              <option>België</option>
+              <option>Nederland</option>
+              <option>Luxemburg</option>
             </select>
           </div>
           <!-- Input-veld "Provincie" -->
@@ -81,7 +83,16 @@
             <label for="provincie" class="form-label">Provincie</label>
             <select id="provincie" class="form-select">
               <option selected>Kies een provincie</option>
-              <option>...</option>
+              <option>Antwerpen</option>
+              <option>Henegouwen</option>
+              <option>Limburg</option>
+              <option>Luik</option>
+              <option>Luxemburg</option>
+              <option>Namen</option>
+              <option>Oost-Vlaanderen</option>
+              <option>Vlaams Braband</option>
+              <option>Waals Braband</option>
+              <option>West-Vlaanderen</option>
             </select>
           </div>
           <!-- Input-veld "Poscode" -->
@@ -161,7 +172,7 @@
           </p>
         </div>
         <!-- Groene kader -> Indien alle velden correct zijn ingevuld geeft deze een melding weer. -->
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-success" id="goed_gedaan" role="alert">
           <h4>Goed gedaan!</h4>
           <p>Aww yeah, je werd geregistreerd.</p>
         </div>
@@ -180,7 +191,7 @@
       // querySelector is veel krachtiger en je kan ook met klasses werken.
       // bij id = (#id) , bij class = (.class)
 
-      // Declareer de variabelen
+      // Declaratie van de variabelen die verwijzen naar de klassen of id's in het HTML-script
       let submitKnop = document.querySelector(".btn-primary")
       let input_voornaam = document.querySelector("#voornaam")
       let input_familienaam = document.querySelector("#familienaam")
@@ -198,6 +209,7 @@
       let input_visacard = document.querySelector("#chkVisaCard")
       let input_paypal = document.querySelector("#chkPaypal")
       
+      // Declaratie van de arrays "errors" en "betalingswijze".
       let errors = [];
       let betalingswijze = [];
       
@@ -214,99 +226,92 @@
 
       // Functie om te controleren of het veld "voornaam" is ingevuld.
       function voornaamVerplicht() {
-        let value = input_voornaam.value;
-        if (value === '') {
+        let voornaam = input_voornaam.value;
+        if (voornaam === '') {
           errors.push('Het veld voornaam is vereist.')
-          console.log('voornaam niet ingevuld')
         }
       }
 
       // Functie om te controleren of het veld "achternaam" is ingevuld.
       function familienaamVerplicht() {
-        let value = input_familienaam.value;
-        if (value === '') {
+        let familienaam = input_familienaam.value;
+        if (familienaam === '') {
           errors.push('Het veld naam is vereist.')
-          console.log('naam niet ingevuld')
         }
       }
 
       // Functie om te controleren of het veld "gebruikersnaam" is ingevuld.
       function gebruikersnaamVerplicht() {
-        let value = input_gebruikersnaam.value;
-        if (value === '') {
+        let gebruikersnaam = input_gebruikersnaam.value;
+        if (gebruikersnaam === '') {
           errors.push('Het veld gebruikersnaam is vereist.')
-          console.log('gebruikersnaam niet ingevuld')
         }
       }
 
-      // Functie om te controleren of het veld "email" is ingevuld.
-      function emailVerplicht() {
-        let value = input_email.value;
-        if (value === '') {
-          errors.push('Het veld email is vereist.')
-          console.log('email niet ingevuld')
+      // Functie dat het veld "email" controleert op een gelige invoer met behulp van een regular expression.
+      function validateEmail() {
+      let email = input_email.value;
+      let emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+      let isGeldig = emailRegex.test(email);
+      if (!isGeldig) {
+        errors.push("E-mailadres is niet correct.");
         }
+      return isGeldig;
       }
 
       // Functie om te controleren of het veld "adres" is ingevuld.
       function adresVerplicht() {
-        let value = input_adres.value;
-        if (value === '') {
+        let adres = input_adres.value;
+        if (adres === '') {
           errors.push('Adres is vereist.')
-          console.log('adres niet ingevuld')
         }
       }
 
       // Functie om te controleren of het veld "land" is ingevuld.
       function landVerplicht() {
-        let value = input_land.value;
-        if (value === 'Kies een land') {
-          console.log('land niet ingevuld')
+        let land = input_land.value;
+        if (land === 'Kies een land') {
+          errors.push('Het veld land is vereist.')
         }
       }
 
       // Functie om te controleren of het veld "provincie" is ingevuld.
       function provincieVerplicht() {
-        let value = input_provincie.value;
-        if (value === 'Kies een provincie') {
+        let provincie = input_provincie.value;
+        if (provincie === 'Kies een provincie') {
           errors.push('Provincie is vereist.')
-          console.log('provincie niet ingevuld')
         }
       }
 
-      // Functie om te controleren of het veld "algemenet voorwaarden" is ingevuld.
+      // Functie om te controleren of de "algemenet voorwaarden" zijn aanvaard.
       // bron: https://www.javatpoint.com/how-to-check-a-radio-button-using-javascript
       function algemeneVoorwaardenVerplicht() {
-        let value = input_algemeneVoorwaarden.checked;
-        if (value == false) {
+        let algemenevoorwaarden = input_algemeneVoorwaarden.checked;
+        if (algemenevoorwaarden == false) {
           errors.push('Je moet de algemente voorwaarden accpeteren.')
-          console.log('algemene voorwaarden niet geaccepteerd')
         }
       }
 
       // Functie om te controleren of het veld "postcode" is ingevuld en of de waarde die ingevuld wordt in veld "postcode" groter of gelijk is aan 1000 en kleiner is dan 10000.
       function checkPC() {
-        let value = input_postcode.value;
-        if (value === '') {
+        let postcode = input_postcode.value;
+        if (postcode === '') {
           errors.push('Je hebt geen geldige postcode ingevuld')
-          console.log('postcode niet ingevuld')
-        } else if (value < 1000 || value > 9999) {
+        } else if (postcode < 1000 || postcode > 9999) {
           errors.push('De waarde van de postcode moet tussen 1000 en 9999 liggen!')
-          console.log('postcode niet tussen 1000 en 9999')
         }
       }
 
       // Functie om te controleren of het veld "wachtwoord" is ingevuld, of de het wachtwoord gelijk is aan het herhaalWachtwoord en het wachtwoord groter is dan 7 karakters.
       function wachtwoordControle() {
-        let value = input_wachtwoord.value;
-          if (value === '') {
+        let wachtwoord1 = input_wachtwoord.value;
+        let wachtwoord2 = input_herhaalWachtwoord.value
+        if (wachtwoord1 === '' || wachtwoord2 === '') {
           errors.push('Het veld wachtwoord is vereist.')
-          } else if (value < 8) {
-          console.log('Wachtwoord is te kort')
-          document.querySelector(".wachtwoordMinKarakters").innerText = "<p>Je wachtwoord moet minstens 8 tekens lang zijn<p>"
-        } else if (input_wachtwoord.value !== input_herhaalWachtwoord.value) {
+          } else if (wachtwoord1.length < 8 || wachtwoord2.length < 8) {
+          document.querySelector(".wachtwoordMinKarakters").innerText = "Je wachtwoord moet minstens 8 tekens lang zijn"
+        } else if (wachtwoord1 !== wachtwoord2) {
           errors.push('Je wachtwoorden komen niet overeen!')
-          console.log('wachtwoorden komen niet overeen')
         }
       }
 
@@ -338,10 +343,35 @@
           document.querySelector('#betalingwijze').innerText = betalingswijze;
       }
 
+		  function ErrorBanner() {
+      let errormeldingen = document.querySelector("#error_banner").style.visibility = "visible";
+		  }
+
+      function GoedGedaanBanner() {
+      let betalingswijze = document.querySelector("#goed_gedaan").style.visibility = "visible"
+		  }
+      function BetalingswijzeBanner() {
+      let betalingswijze = document.querySelector("#betalingswijze_banner").style.visibility = "visible"
+		  }
+
       // Eventlistener op de submit knop
       submitKnop.addEventListener('click', () => {
-      maakLijstenLeeg(), voornaamVerplicht(), familienaamVerplicht(), gebruikersnaamVerplicht(), emailVerplicht(), wachtwoordControle(), adresVerplicht(), landVerplicht(), provincieVerplicht(), algemeneVoorwaardenVerplicht(), checkPC(), validatePayment(), toonFoutmeldingen(), toonBetalingswijze()});
-
+          maakLijstenLeeg(),
+          voornaamVerplicht(),
+          familienaamVerplicht(),
+          gebruikersnaamVerplicht(),
+          validateEmail(),
+          wachtwoordControle(),
+          adresVerplicht(),
+          landVerplicht(),
+          provincieVerplicht(),
+          algemeneVoorwaardenVerplicht(),
+          checkPC(),
+          validatePayment(),
+          toonFoutmeldingen()})
+        if (errors.length === 0)
+        { ErrorBanner() }
+        else { GoedGedaanBanner(), BetalingswijzeBanner() };
       </script>
 
     <!-- Bootstrap -->
