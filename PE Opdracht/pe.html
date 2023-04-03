@@ -163,21 +163,21 @@
       </div>
 
       <!-- De rechter kolom wordt gedefinieerd met de klasse "col-md". -> Deze vult de resterende breedte op aan de rechter kant van het scherm -->
-      <div class="col-md">
+      <div class="col-md" >
         <!-- Rode kader -> Indien er velden niet correct ingevuld zijn worden er waarschuwingen weergegeven. -->
-        <div class="alert alert-danger" id="error_banner" role="alert">
+        <div class="alert alert-danger" role="alert" style="display: none;">
           <h4>Yikes, errors...</h4>
           <p id="foutmeldingen">
             <!-- Hier worden de foutmeldingen weergegeven. -->
           </p>
         </div>
         <!-- Groene kader -> Indien alle velden correct zijn ingevuld geeft deze een melding weer. -->
-        <div class="alert alert-success" id="goed_gedaan" role="alert">
+        <div class="alert alert-success" role="alert" style="display: none;">
           <h4>Goed gedaan!</h4>
           <p>Aww yeah, je werd geregistreerd.</p>
         </div>
         <!-- Licht blauiwe kader -> Dit heeft betrekking tot de geselecteerde betaalwijze. -->
-        <div class="alert alert-info" id="betalingswijze_banner" role="alert">
+        <div class="alert alert-info" role="alert" style="display: none;">
           <h4>Betalingswijze</h4>
           <p id="betalingwijze"></p>
         </div>
@@ -192,47 +192,45 @@
       // bij id = (#id) , bij class = (.class)
 
       // Declaratie van de variabelen die verwijzen naar de klassen of id's in het HTML-script
-      let submitKnop = document.querySelector(".btn-primary")
-      let input_voornaam = document.querySelector("#voornaam")
-      let input_familienaam = document.querySelector("#familienaam")
-      let input_gebruikersnaam = document.querySelector("#gebruikersnaam")
-      let input_email = document.querySelector("#email")
-      let input_wachtwoord = document.querySelector("#wachtwoord")
-      let input_herhaalWachtwoord = document.querySelector("#herhaalWachtwoord")
-      let input_adres = document.querySelector("#adres")
-      let input_land = document.querySelector("#land")
-      let input_provincie = document.querySelector("#provincie")
-      let input_postcode = document.querySelector("#postcode")
-      let input_algemeneVoorwaarden = document.querySelector("#algemeneVoorwaarden")
-      let input_bankingApp = document.querySelector("#chkBankingApp")
-      let input_overschrijving = document.querySelector("#chkOverschrijving")
-      let input_visacard = document.querySelector("#chkVisaCard")
-      let input_paypal = document.querySelector("#chkPaypal")
+      let submitKnop = document.querySelector(".btn-primary");
+      let input_voornaam = document.querySelector('#voornaam');
+      let input_familienaam = document.querySelector('#familienaam');
+      let input_gebruikersnaam = document.querySelector('#gebruikersnaam');
+      let input_email = document.querySelector("#email");
+      let input_wachtwoord = document.querySelector("#wachtwoord");
+      let input_herhaalWachtwoord = document.querySelector("#herhaalWachtwoord");
+      let input_adres = document.querySelector("#adres");
+      let input_land = document.querySelector("#land");
+      let input_provincie = document.querySelector("#provincie");
+      let input_postcode = document.querySelector("#postcode");
+      let input_algemeneVoorwaarden = document.querySelector("#algemeneVoorwaarden");
+      let input_bankingApp = document.querySelector("#chkBankingApp");
+      let input_overschrijving = document.querySelector("#chkOverschrijving");
+      let input_visacard = document.querySelector("#chkVisaCard");
+      let input_paypal = document.querySelector("#chkPaypal");
       
       // Declaratie van de arrays "errors" en "betalingswijze".
       let errors = [];
       let betalingswijze = [];
       
       // FUNCTIES
-      // Functie om alle lijsten leeg te maken
-      function maakLijstenLeeg() {
-         errors = [];
-         document.querySelector('#foutmeldingen').innerHTML = errors
-         betalingswijze = []
-         document.querySelector('#betalingwijze').innerText = betalingswijze
-         document.querySelector(".wachtwoordMinKarakters").innerText = ""
-         console.clear()
-      }
 
-      // Functie om te controleren of het veld "voornaam" is ingevuld.
-      function voornaamVerplicht() {
-        let voornaam = input_voornaam.value;
-        if (voornaam === '') {
-          errors.push('Het veld voornaam is vereist.')
+      /* Controle leeg veld
+      Voor de controle van een leeg veld gebruik je een functie checkEmptyField waar je steeds 2 parameters gaat meegeven: veld en melding.
+      Voeg na controle in deze functie de melding toe aan de array errors.
+      Indien het veld leeg is geef je bijvoorbeeld volgende melding “Het veld voornaam is vereist.”.
+      */
+      let veld = ['input_voornaam', 'input_familienaam', 'input_gebruikersnaam', 'input_adres', 'input_land', 'input_provincie'];
+      let melding = (`Het veld ${veld.id} is vereist.`);
+
+      veld.forEach(checkEmptyField)
+        function checkEmptyField(veld, melding) {
+        if (veld.value === '') {
+          errors.push(melding)
         }
       }
 
-      // Functie om te controleren of het veld "achternaam" is ingevuld.
+       //Functie om te controleren of het veld "achternaam" is ingevuld.
       function familienaamVerplicht() {
         let familienaam = input_familienaam.value;
         if (familienaam === '') {
@@ -240,7 +238,7 @@
         }
       }
 
-      // Functie om te controleren of het veld "gebruikersnaam" is ingevuld.
+       //Functie om te controleren of het veld "gebruikersnaam" is ingevuld.
       function gebruikersnaamVerplicht() {
         let gebruikersnaam = input_gebruikersnaam.value;
         if (gebruikersnaam === '') {
@@ -248,7 +246,44 @@
         }
       }
 
-      // Functie dat het veld "email" controleert op een gelige invoer met behulp van een regular expression.
+       //Functie om te controleren of het veld "adres" is ingevuld.
+      function adresVerplicht() {
+        let adres = input_adres.value;
+        if (adres === '') {
+          errors.push('Adres is vereist.')
+        }
+      }
+       
+       //Functie om te controleren of het veld "land" is ingevuld.
+      function landVerplicht() {
+        let land = input_land.value;
+        if (land === 'Kies een land') {
+          errors.push('Het veld land is vereist.')
+        }
+      }
+
+       //Functie om te controleren of het veld "provincie" is ingevuld.
+      function provincieVerplicht() {
+        let provincie = input_provincie.value;
+        if (provincie === 'Kies een provincie') {
+          errors.push('Provincie is vereist.')
+        }
+      }
+
+      /* Controle e-mailadres
+      Voor de controle of het een geldig e-mailadres is gebruik je de functie validateEmail waar je één parameter meegeeft namelijk: e-mailadres.
+      Deze functie geeft een boolean terug.
+      Indien de controle niet geldig is voeg je de melding “E-mailaders is niet correct.” toe aan de array errors.
+      Controleer zeker volgende zaken:
+      • De gebruikersnaam van het mailadres moet voldoen aan volgende criteria:
+        o Moet minstens één karakter lang zijn
+        o Mag letters, nummers of underscores bevatten
+        o Mag punten of koppeltekens bevatten, maar niet als eerste karakter
+      • Het domein van het mailadres moet voldoen aan volgende criteria:
+        o Moet starten met een letter of nummer
+        o Mag een punt of koppelteken(s) bevatten
+      Werk je met regular expression (RegEx)? Test deze dan online uit op bijvoorbeeld https://regexr.com.
+      */
       function validateEmail() {
       let email = input_email.value;
       let emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
@@ -259,32 +294,11 @@
       return isGeldig;
       }
 
-      // Functie om te controleren of het veld "adres" is ingevuld.
-      function adresVerplicht() {
-        let adres = input_adres.value;
-        if (adres === '') {
-          errors.push('Adres is vereist.')
-        }
-      }
-
-      // Functie om te controleren of het veld "land" is ingevuld.
-      function landVerplicht() {
-        let land = input_land.value;
-        if (land === 'Kies een land') {
-          errors.push('Het veld land is vereist.')
-        }
-      }
-
-      // Functie om te controleren of het veld "provincie" is ingevuld.
-      function provincieVerplicht() {
-        let provincie = input_provincie.value;
-        if (provincie === 'Kies een provincie') {
-          errors.push('Provincie is vereist.')
-        }
-      }
-
-      // Functie om te controleren of de "algemenet voorwaarden" zijn aanvaard.
-      // bron: https://www.javatpoint.com/how-to-check-a-radio-button-using-javascript
+      /* Controleer ook of de algemene voorwaarden zijn aangeduid.
+      Dit is verplicht.
+      Voeg een melding toe aan de array errors.
+      bron: https://www.javatpoint.com/how-to-check-a-radio-button-using-javascript
+      */
       function algemeneVoorwaardenVerplicht() {
         let algemenevoorwaarden = input_algemeneVoorwaarden.checked;
         if (algemenevoorwaarden == false) {
@@ -292,7 +306,13 @@
         }
       }
 
-      // Functie om te controleren of het veld "postcode" is ingevuld en of de waarde die ingevuld wordt in veld "postcode" groter of gelijk is aan 1000 en kleiner is dan 10000.
+      /* Controle postcode
+      Voor de controle van de postcode gebruik je een functie checkPC waar je één parameter meegeeft namelijk: veld.
+      Indien het veld leeg is geef je de melding “Het veld postcode is vereist.”.
+      De waarde moet ook groter of gelijk zijn aan 1000 en kleiner dan 10000. Dus van 1000 t.e.m. 9999 is geldig!
+      Geef anders de melding “De waarde van postcode moet tussen 1000 en 9999 liggen.”.
+      Voeg deze meldingen toe aan de array errors.
+      */
       function checkPC() {
         let postcode = input_postcode.value;
         if (postcode === '') {
@@ -302,20 +322,34 @@
         }
       }
 
-      // Functie om te controleren of het veld "wachtwoord" is ingevuld, of de het wachtwoord gelijk is aan het herhaalWachtwoord en het wachtwoord groter is dan 7 karakters.
+      /* Controle wachtwoord
+      Voor de controle van de wachtwoorden controleer je of beide zijn ingevuld.
+      Dit mag maar hoeft niet via een functie.
+      Een wachtwoord moet langer zijn dan 7 karakters en moet steeds gelijk zijn aan het herhalend wachtwoord.
+      Er kunnen dus 4 meldingen voorkomen: 2 voor de lege velden, 1 indien het te kort is en 1 wanneer ze niet gelijk zijn aan elkaar.
+      Voeg de meldingen toe aan de array errors.
+      */
       function wachtwoordControle() {
         let wachtwoord1 = input_wachtwoord.value;
         let wachtwoord2 = input_herhaalWachtwoord.value
-        if (wachtwoord1 === '' || wachtwoord2 === '') {
+        if (wachtwoord1 === '') {
           errors.push('Het veld wachtwoord is vereist.')
+          } if (wachtwoord2 === '') {
+          errors.push('Het veld herhaal wachtwoord is vereist.')
           } else if (wachtwoord1.length < 8 || wachtwoord2.length < 8) {
           document.querySelector(".wachtwoordMinKarakters").innerText = "Je wachtwoord moet minstens 8 tekens lang zijn"
+          errors.push('Je wachtwoord moet minstens 8 tekens lang zijn')
         } else if (wachtwoord1 !== wachtwoord2) {
           errors.push('Je wachtwoorden komen niet overeen!')
         }
       }
 
-      // Functie om de betalingswijze te controleren.
+      /* Controle betalingswijze
+      Voor de controle of er een betalingswijze is aangeduid, gebruik je de functie validatePayment waar je één parameter meegeeft namelijk: veld.
+      In deze functie vul je de P-tag binnen de blauwe (betalingswijze) alert op.
+      “Overschrijving” in het voorbeeld is variabel.
+      Dit zou dus ook “banking app”, “visa card” of “paypal” kunnen zijn naargelang wat de gebruiker had aangeduid.
+      */
       function validatePayment() {
         let validatieBankingApp = input_bankingApp.checed;
         let validatieOverschrijving = input_overschrijving.checked;
@@ -343,35 +377,65 @@
           document.querySelector('#betalingwijze').innerText = betalingswijze;
       }
 
+      /* Geef op het einde ofwel de array errors weer, ofwel de groene en de blauwe alert samen.
+      Verberg de ALERT-meldingen via jouw script.
+      */
+
+      // Functie om de rode banner te tonen met foutmeldingen
 		  function ErrorBanner() {
-      let errormeldingen = document.querySelector("#error_banner").style.visibility = "visible";
-		  }
+        let errormeldingen = document.querySelector(".alert-danger");
+        if (errors.length !== 0) { errormeldingen.style.display = "block"; }
+        else { errormeldingen.style.display = "none"; }
+      }
 
+      // Functie om de groene banner te tonen met de melding dat de registratie is gelukt
       function GoedGedaanBanner() {
-      let betalingswijze = document.querySelector("#goed_gedaan").style.visibility = "visible"
-		  }
-      function BetalingswijzeBanner() {
-      let betalingswijze = document.querySelector("#betalingswijze_banner").style.visibility = "visible"
-		  }
+      let goedgedaan = document.querySelector(".alert-success");
+      if (errors.length === 0) { goedgedaan.style.display = "block"; }
+      else { goedgedaan.style.display = "none"; }
+      }
 
-      // Eventlistener op de submit knop
-      submitKnop.addEventListener('click', () => {
+      // Functie om de blauwe banner te tonen met vermelding van de betalingswijze
+      function BetalingswijzeBanner() {
+      let betalingswijze = document.querySelector(".alert-info");
+      if (errors.length === 0) { betalingswijze.style.display = "block"; }
+      else { betalingswijze.style.display = "none"; }
+      }
+
+      // Deze functie maakt de lijsten met foutmeldingen en de betalingswijze leeg
+      function maakLijstenLeeg() {
+         errors = [];
+         document.querySelector('#foutmeldingen').innerHTML = errors;
+         betalingswijze = [];
+         document.querySelector('#betalingwijze').innerText = betalingswijze;
+         document.querySelector(".wachtwoordMinKarakters").innerText = "";
+      }
+
+      /* Bij het klikken op de knop trigger je de functie validateForm.
+      In deze functie controleer je alle velden of spreek je eventueel andere functies aan.
+      */
+      function validateForm() {
           maakLijstenLeeg(),
-          voornaamVerplicht(),
+          //checkEmptyField(),
           familienaamVerplicht(),
           gebruikersnaamVerplicht(),
-          validateEmail(),
-          wachtwoordControle(),
           adresVerplicht(),
           landVerplicht(),
           provincieVerplicht(),
+          validateEmail(),
+          wachtwoordControle(),
           algemeneVoorwaardenVerplicht(),
           checkPC(),
           validatePayment(),
-          toonFoutmeldingen()})
-        if (errors.length === 0)
-        { ErrorBanner() }
-        else { GoedGedaanBanner(), BetalingswijzeBanner() };
+          toonBetalingswijze(),
+          toonFoutmeldingen()
+          ErrorBanner(),
+          GoedGedaanBanner(),
+          BetalingswijzeBanner()};
+      
+      // Eventlistener op de submit knop
+      submitKnop.addEventListener('click', () => {
+          validateForm()});
       </script>
 
     <!-- Bootstrap -->
