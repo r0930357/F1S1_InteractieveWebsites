@@ -27,12 +27,12 @@
           <!-- Input-veld: "Voornaam" -->
           <div class="col-md-6">
             <label for="voornaam" class="form-label">Voornaam</label>
-            <input type="text" class="form-control" id="voornaam" placeholder="Uw voornaam">
+            <input type="text" class="form-control checkEmptyFieldList" id="voornaam" placeholder="Uw voornaam">
           </div>
           <!-- Input-veld: "Naam" -->
           <div class="col-md-6">
             <label for="naam" class="form-label">Naam</label>
-            <input type="text" class="form-control" id="familienaam" placeholder="Uw naam">
+            <input type="text" class="form-control checkEmptyFieldList" id="familienaam" placeholder="Uw naam">
           </div>
 
           <!-- Input-veld: "Gebruikersnaam" -->
@@ -41,7 +41,7 @@
             <!-- Het @-symbool wordt aan de linkerkant van het input-veld "Gebruikersnaam" voorzien -->
             <div class="input-group">
               <div class="input-group-text">@</div>
-              <input type="text" class="form-control" id="gebruikersnaam" placeholder="u911236">
+              <input type="text" class="form-control checkEmptyFieldList" id="gebruikersnaam" placeholder="u911236">
             </div>
           </div>
           <!-- Input-veld: "E-mailadres" -->
@@ -65,14 +65,14 @@
           <!-- Input-veld "Adres" -->
           <div class="col-md-12">
             <label for="adres" class="form-label">Adres</label>
-            <input type="text" class="form-control" id="adres">
+            <input type="text" class="form-control checkEmptyFieldList" id="adres">
           </div>
 
           <!-- Input-veld "Land" -->
           <div class="col-md-5">
             <label for="land" class="form-label">Land</label>
-            <select id="land" class="form-select">
-              <option selected>Kies een land</option>
+            <select id="land" class="form-select checkEmptyFieldList">
+              <option value="" disabled selected>Kies een land</option>
               <option>België</option>
               <option>Nederland</option>
               <option>Luxemburg</option>
@@ -81,8 +81,8 @@
           <!-- Input-veld "Provincie" -->
           <div class="col-md-4">
             <label for="provincie" class="form-label">Provincie</label>
-            <select id="provincie" class="form-select">
-              <option selected>Kies een provincie</option>
+            <select id="provincie" class="form-select checkEmptyFieldList">
+              <option value="" disabled selected>Kies een provincie</option>
               <option>Antwerpen</option>
               <option>Henegouwen</option>
               <option>Limburg</option>
@@ -98,7 +98,7 @@
           <!-- Input-veld "Poscode" -->
           <div class="col-md-3">
             <label for="postcode" class="form-label">Postcode</label>
-            <input type="text" class="form-control" id="postcode">
+            <input type="number" min="1000" class="form-control" id="postcode">
           </div>
 
           <hr>
@@ -124,29 +124,28 @@
             <h2>Betaling</h2>
             <!-- Sectie keuez: "Banking app" -->
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="exampleRadios" id="chkBankingApp" value="option1"
-                checked>
+              <input class="form-check-input checkPaymentMethod" type="radio" name="selectPaymentMethod" id="Banking app" value="option1" checked>
               <label class="form-check-label" for="exampleRadios1">
                 Banking app
               </label>
             </div>
             <!-- Sectie keuez: "Overschrijving" -->
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="exampleRadios" id="chkOverschrijving" value="option2">
+              <input class="form-check-input checkPaymentMethod" type="radio" name="selectPaymentMethod" id="Overschrijving" value="option2">
               <label class="form-check-label" for="exampleRadios2">
                 Overschrijving
               </label>
             </div>
             <!-- Sectie keuez: "Visa card" -->
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="exampleRadios" id="chkVisaCard" value="option3">
+              <input class="form-check-input checkPaymentMethod" type="radio" name="selectPaymentMethod" id="Visa card" value="option3">
               <label class="form-check-label" for="exampleRadios3">
                 Visa card
               </label>
             </div>
             <!-- Sectie keuez: "Paypal" -->
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="exampleRadios" id="chkPaypal" value="option4">
+              <input class="form-check-input checkPaymentMethod" type="radio" name="selectPaymentMethod" id="Paypal" value="option4">
               <label class="form-check-label" for="exampleRadios4">
                 Paypal
               </label>
@@ -187,86 +186,38 @@
     <!-- Javascript -->
     <!-- Eigen code -->
     <script>
-      // getElementById best vervangen door querySelector.
-      // querySelector is veel krachtiger en je kan ook met klasses werken.
-      // bij id = (#id) , bij class = (.class)
-
       // Declaratie van de variabelen die verwijzen naar de klassen of id's in het HTML-script
       let submitKnop = document.querySelector(".btn-primary");
-      let input_voornaam = document.querySelector('#voornaam');
-      let input_familienaam = document.querySelector('#familienaam');
-      let input_gebruikersnaam = document.querySelector('#gebruikersnaam');
+      let veld1 = document.getElementsByClassName('checkEmptyFieldList')
+      let veld2 = document.getElementsByClassName('checkPaymentMethod')
+      let melding = (`Het veld ${veld1} is vereist.`);
       let input_email = document.querySelector("#email");
       let input_wachtwoord = document.querySelector("#wachtwoord");
       let input_herhaalWachtwoord = document.querySelector("#herhaalWachtwoord");
-      let input_adres = document.querySelector("#adres");
-      let input_land = document.querySelector("#land");
-      let input_provincie = document.querySelector("#provincie");
       let input_postcode = document.querySelector("#postcode");
       let input_algemeneVoorwaarden = document.querySelector("#algemeneVoorwaarden");
       let input_bankingApp = document.querySelector("#chkBankingApp");
       let input_overschrijving = document.querySelector("#chkOverschrijving");
       let input_visacard = document.querySelector("#chkVisaCard");
       let input_paypal = document.querySelector("#chkPaypal");
-      
+
       // Declaratie van de arrays "errors" en "betalingswijze".
       let errors = [];
       let betalingswijze = [];
       
       // FUNCTIES
-
       /* Controle leeg veld
       Voor de controle van een leeg veld gebruik je een functie checkEmptyField waar je steeds 2 parameters gaat meegeven: veld en melding.
       Voeg na controle in deze functie de melding toe aan de array errors.
       Indien het veld leeg is geef je bijvoorbeeld volgende melding “Het veld voornaam is vereist.”.
       */
-      let veld = ['input_voornaam', 'input_familienaam', 'input_gebruikersnaam', 'input_adres', 'input_land', 'input_provincie'];
-      let melding = (`Het veld ${veld.id} is vereist.`);
-
-      veld.forEach(checkEmptyField)
-        function checkEmptyField(veld, melding) {
-        if (veld.value === '') {
-          errors.push(melding)
-        }
-      }
-
-       //Functie om te controleren of het veld "achternaam" is ingevuld.
-      function familienaamVerplicht() {
-        let familienaam = input_familienaam.value;
-        if (familienaam === '') {
-          errors.push('Het veld naam is vereist.')
-        }
-      }
-
-       //Functie om te controleren of het veld "gebruikersnaam" is ingevuld.
-      function gebruikersnaamVerplicht() {
-        let gebruikersnaam = input_gebruikersnaam.value;
-        if (gebruikersnaam === '') {
-          errors.push('Het veld gebruikersnaam is vereist.')
-        }
-      }
-
-       //Functie om te controleren of het veld "adres" is ingevuld.
-      function adresVerplicht() {
-        let adres = input_adres.value;
-        if (adres === '') {
-          errors.push('Adres is vereist.')
-        }
-      }
-       
-       //Functie om te controleren of het veld "land" is ingevuld.
-      function landVerplicht() {
-        let land = input_land.value;
-        if (land === 'Kies een land') {
-          errors.push('Het veld land is vereist.')
-        }
-      }
-
-       //Functie om te controleren of het veld "provincie" is ingevuld.
-      function provincieVerplicht() {
-        let provincie = input_provincie.value;
-        if (provincie === 'Kies een provincie') {
-          errors.push('Provincie is vereist.')
+      function checkEmptyField(veld1, melding) {
+        for (let i = 0; i < veld1.length; i++ ) {
+        if (veld1[i].value === '') {
+          let fieldId = veld1[i].id;
+          let errorMelding = `Het veld ${fieldId} is vereist.`;
+          errors.push(errorMelding);
+          }
         }
       }
 
@@ -350,19 +301,14 @@
       “Overschrijving” in het voorbeeld is variabel.
       Dit zou dus ook “banking app”, “visa card” of “paypal” kunnen zijn naargelang wat de gebruiker had aangeduid.
       */
-      function validatePayment() {
-        let validatieBankingApp = input_bankingApp.checed;
-        let validatieOverschrijving = input_overschrijving.checked;
-        let validatieVisaCard = input_visacard.checked;
-        let validatiePaypal = input_paypal.checked;
-        if (validatieOverschrijving == true) {
-          betalingswijze.push('Je betalingswijze is Overschrijving')
-        } else if (validatieVisaCard == true) {
-          betalingswijze.push('Je betalingswijze is Visa Card')
-        } else if (validatiePaypal == true) {
-          betalingswijze.push('Je betalingswijze is Paypal')
-        } else
-          betalingswijze.push('Je betalingswijze is Banking app')
+      function validatePayment(veld2) {
+        for (let i = 0; i < veld2.length; i++ ) {
+        if (veld2[i].checked === true ) {
+          let fieldId2 = veld2[i].id;
+          let paymentMelding = `Je betalingswijze is ${fieldId2}.`;
+          betalingswijze.push(paymentMelding);
+          }
+        }
       }
 
       // geeft de array "errors" weer indien deze er zijn.
@@ -406,7 +352,7 @@
       function maakLijstenLeeg() {
          errors = [];
          document.querySelector('#foutmeldingen').innerHTML = errors;
-         betalingswijze = [];
+         betalingswijze = [''];
          document.querySelector('#betalingwijze').innerText = betalingswijze;
          document.querySelector(".wachtwoordMinKarakters").innerText = "";
       }
@@ -416,17 +362,12 @@
       */
       function validateForm() {
           maakLijstenLeeg(),
-          //checkEmptyField(),
-          familienaamVerplicht(),
-          gebruikersnaamVerplicht(),
-          adresVerplicht(),
-          landVerplicht(),
-          provincieVerplicht(),
+          checkEmptyField(veld1, melding),
           validateEmail(),
           wachtwoordControle(),
           algemeneVoorwaardenVerplicht(),
           checkPC(),
-          validatePayment(),
+          validatePayment(veld2),
           toonBetalingswijze(),
           toonFoutmeldingen()
           ErrorBanner(),
