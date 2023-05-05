@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="nl">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math object</title>
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="shortcut icon" href="#">
+</head>
+
+<body>
+    <main class="container">
+        <h1>Math object</h1>
+        <h2 id="resVol">Volume van een cilinder</h2>
+        <p>
+            <label for="straal">straal</label>
+            <span class="input">
+                <input type="number" id="straal" placeholder="straal">
+            </span> cm x
+            <label for="hoogte">hoogte</label>
+            <span class="input">
+                <input type="number" class="input" id="hoogte" placeholder="hoogte">
+            </span>cm
+            <button class="button" id="bereken">bereken</button>
+        </p>
+        <h2 id="resDobbel">Dobbelsteen</h2>
+        <p>
+            <button class="button" id="gooi">Gooi de bobbelstenen</button>
+        </p>
+    </main>
+
+    <script src="js/jquery.min.js"></script>
+    <script>
+        // Voorbeeld 1: volume cilinder
+        berekenVolCil = () => {
+            let r = document.querySelector('#straal').value;
+            let h = document.querySelector('#hoogte').value;
+            let volume = Math.pow(r, 2) * Math.PI * h;
+            // Afronden op 2 decimalen
+            volume = Math.round(volume * 100) / 100;
+
+            // Afronden op 2 decimalen, gebruik Number object methode ToFixed
+            // volume = volume.toFixed(2);
+
+            document.querySelector('#resVol').innerHTML =
+                `Volume: ${volume} cm&sup3;`; // 'Volume: ' + volume + ' cm&sup3;';
+        };
+
+        // Voorbeeld 2: dobbelstenen
+        gooien = () => {
+            let d1 = Math.floor(Math.random() * 6) +
+                1; // 0 -> 0,999999 * 6 = 5,9 => (min 0; max 5) + 1 => min 1 max 6
+            let d2 = Math.floor(Math.random() * 6) + 1;
+            // We gebruiken een zelf geschreven functie
+            let d3 = randomIntFromInterval(1, 6);
+            document.querySelector('#resDobbel').textContent =
+                `U gooide ${d1}, ${d2} en ${d3}`; // 'U gooide ' + d1 + ', ' + d2 + ' en ' + d3;
+        };
+
+        // Extra functie voor random waarden te genereren tussen min en max waarden
+        randomIntFromInterval = (min, max) => { // min and max included 
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        }
+
+        document.querySelector('#bereken').addEventListener('click', berekenVolCil, false);
+        document.querySelector('#gooi').addEventListener('click', gooien, false);
+    </script>
+</body>
+
+</html>

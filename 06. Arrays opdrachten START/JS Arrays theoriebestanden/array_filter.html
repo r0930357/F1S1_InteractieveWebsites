@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="shortcut icon" href="#">
+</head>
+
+<body>
+    <button onclick="mijnFunctie()">Klik mij!</button>
+    <p id="resultaat"></p>
+
+    <script>
+        let leeftijden = [32, 33, 16, 40, 7, 56];
+
+        function checkLeeftijd(leeftijd) {
+            return leeftijd >= 18;
+        }
+
+        function mijnFunctie() {
+            document.getElementById("resultaat").innerHTML = leeftijden.filter(checkLeeftijd);
+        }
+    </script>
+</body>
+
+</html>

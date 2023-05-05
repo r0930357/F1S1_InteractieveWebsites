@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Titel</title>
+    <link rel="shortcut icon" href="#"> </head>
+
+<body>
+    <script>
+        //class declaratie
+        class Boek {
+            constructor(titel, auteur) {
+                this.titel = titel;
+                this.auteur = auteur;
+            }
+        }
+        //Hoisting --> class declaration zijn NIET hoisted, function declarations wel!
+        const boek_1 = new Boek(); // ReferenceError
+        class Boek {}
+
+        //class expression
+        // unnamed
+        var Boek = class {
+            constructor(titel, auteur) {
+                this.titel = titel;
+                this.auteur = auteur;
+            }
+        };
+
+        // named
+        var Boek = class Boek {
+            constructor(titel, auteur) {
+                this.titel = titel;
+                this.auteur = auteur;
+            }
+        };
+    </script>
+</body>
+
+</html>

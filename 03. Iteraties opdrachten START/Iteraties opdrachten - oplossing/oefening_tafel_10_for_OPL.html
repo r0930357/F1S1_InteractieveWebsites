@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="nl">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>De for-lus</title>
+    <link rel="shortcut icon" href="#">
+</head>
+
+<body>
+    <h1>De for-lus</h1>
+    <div id="divResult"></div>
+
+    <script>
+        let getal = 10;
+
+        for (let teller = 1; teller <= 10; teller++) {
+            document.getElementById('divResult').innerHTML += teller + ' x ' + getal + ' = ' + teller * getal +
+                '<br />';
+            // document.getElementById('divResult').innerHTML += `${teller} x ${getal} = ${teller * getal} <br />`;
+        }
+    </script>
+
+</body>
+
+</html>

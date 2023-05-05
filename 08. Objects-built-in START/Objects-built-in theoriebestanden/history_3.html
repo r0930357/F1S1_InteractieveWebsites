@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="nl">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History object</title>
+    <link href="css/style.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: lightcoral;
+        }
+    </style>
+    <link rel="shortcut icon" href="#">
+</head>
+
+<body>
+    <main class="container">
+        <h1>History object pagina 3</h1>
+        <h2 id="lengte">History.length</h2>
+        <div id="datumtijd"></div>
+        <a href="history.html">Klik hier</a>
+        <p>
+            <button class="button" id="vorige">ga naar vorige pagina</button>
+            <button class="button" id="eerste">ga naar eerste pagina</button>
+        </p>
+
+    </main>
+    <script>
+        // History van de pagina
+        document.querySelector('#lengte').textContent = 'History.length = ' + history.length;
+
+        // Eerste bezoek tonen => enkel de tijd
+        // getItem geeft String terug, dus eerst omzetten naar Number!
+        let dt = new Date(new Number(localStorage.getItem("gestart"))); // nieuwe datum op basis van milliseconds
+        console.log(localStorage.getItem("gestart"));
+
+        document.querySelector("#datumtijd").textContent = new Intl.DateTimeFormat('nl-BE', {
+            hour: '2-digit',
+            minute: '2-digit'
+        }).format(dt);
+
+        // Ga naar vorige pagina
+        vorige = () => {
+            history.back();
+        }
+
+        // Ga naar eerste pagina
+        eerste = () => {
+            history.go(-(history.length - 1));
+        }
+
+        document.querySelector('#vorige').addEventListener('click', vorige, false);
+        document.querySelector('#eerste').addEventListener('click', eerste, false);
+    </script>
+</body>
+
+</html>

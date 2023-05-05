@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="nl">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Opdrachten les 6: build-in objecten</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="#">
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>Opdracht Dobbelsteen tijdsverschil</h1>
+
+        <div class="row">
+            <div class="col-md-12">
+
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Naam + datum
+        let start = new Date();
+        let arr = [],
+            count = 0;
+
+        for (let i = 0; i < 1000000; i++) {
+            let dob = parseInt(Math.random() * 6 + 1);
+            arr.push(dob);
+            count += (dob == 6) ? 1 : 0; // tellen het aantal zessen
+        }
+
+        console.log(arr);
+
+        let end = new Date();
+        let elapsed = end.getTime() - start.getTime(); // elapsed time in milliseconds
+
+        console.log(`Je gooide ${String(count)} keer een 6 in ${String(elapsed)} milliseconden`);
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <s>
+
+        </htmlcript src="js/bootstrap.js">
+        </script>
+</body>
+
+</html>
