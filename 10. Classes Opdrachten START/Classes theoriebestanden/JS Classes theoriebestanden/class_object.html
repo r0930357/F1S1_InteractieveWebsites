@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Titel</title>
+    <link rel="shortcut icon" href="#">
+</head>
+
+<body>
+    <script>
+        //class declaratie
+        class Boek {
+            constructor(titel, auteur) {
+                this.t = titel;
+                this.a = auteur;
+            }
+
+            uitvoer() {
+                console.log("De titel van het boek: ", this.t);
+                console.log("De auteur van het boek: ", this.a);
+            }
+        }
+
+        // Maken van een instantie
+        let boek_1 = new Boek("Eloquent Javascript", "Marijn Haverbeke");
+        boek_1.uitvoer();
+
+        console.log(boek_1);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Classes expression</title>
+    <link rel="shortcut icon" href="#">
+</head>
+
+<body>
+    <script>
+        // class expression
+        // unnamed
+        let Boek = class {
+            constructor(titel, auteur = "") {
+                this.titel = titel;
+                this.auteur = auteur;
+            }
+            vraagTitel() {
+                return 'De titel is: ' + this.titel + ' (' + this.auteur + ')';
+            }
+        };
+
+
+        console.log(new Boek("De titel van dit boek")
+            .vraagTitel()); // Enkel aan te spreken via de variabele new Boek 
+
+
+
+        // named
+        let tijd1 = class Tijdschrift {
+            constructor(titel, auteur) {
+                this.titel = titel;
+                this.auteur = auteur;
+            }
+            vraagTitel() {
+                return 'De titel is: ' + this.titel;
+            }
+        };
+
+        console.log(new tijd1("Een andere titel van dit boek")
+            .vraagTitel()); // Enkel aan te spreken via de variabele new Tijd1 en niet via de klassenaam new Tijdschrift
+    </script>
+</body>
+
+</html>

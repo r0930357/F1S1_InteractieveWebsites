@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="nl">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>For....in</title>
+    <link rel="shortcut icon" href="#">
+</head>
+
+<body>
+
+    <script type="text/javascript">
+        const el = document.querySelector("#divResult");
+
+        let persoon = {
+            voornaam: "Thomas",
+            achternaam: "More",
+            woonplaats: "Geel"
+        };
+
+        console.log("--- for...in --------------");
+
+        // for in gebruiken om door eigenschappen te lopen... 
+        // Beter niet gebruiken      
+        for (const eigenschap in persoon) {
+            console.log(eigenschap + ': ' + persoon[eigenschap]);
+        }
+
+
+        console.log("--- forEach --------------");
+        // 
+        Object.keys(persoon).forEach((key, index) => {
+            console.log(`${key}: ${persoon[key]}`);
+        });
+
+        // iterate over object values
+        Object.values(persoon).forEach(val => console.log(val));
+
+        console.log("--- for...of --------------");
+        // Maak gebruik van Object.entries.
+        /*
+            The Object.entries() method returns an array of a given object's own enumerable string-keyed property [key, value] pairs. 
+        */
+        for (const item of Object.entries(persoon)) {
+            console.log(item)
+        }
+
+        for (const [key, value] of Object.entries(persoon)) {
+            console.log(`${key}: ${value}`);
+        }
+
+        // Uncaught TypeError: persoon is not iterable.
+        for (const item of persoon) {
+            console.log(item)
+        }
+    </script>
+
+
+</body>
+
+</html>

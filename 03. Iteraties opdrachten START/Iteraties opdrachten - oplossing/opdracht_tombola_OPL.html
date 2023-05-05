@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="nl">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les 3: Oefening 4</title>
+    <link rel="shortcut icon" href="#">
+</head>
+
+<body>
+    <script>
+        let aantalLoten = 0,
+            ontvangen = 0;
+
+        do {
+            aantalLoten++;
+
+            if (aantalLoten <= 5) {
+                ontvangen += aantalLoten;
+            } else {
+                ontvangen += 6;
+            }
+        } while (ontvangen <= 1899)
+
+        alert("Vanaf lot " + aantalLoten + " is er winst. ");
+    </script>
+
+</body>
+
+</html>

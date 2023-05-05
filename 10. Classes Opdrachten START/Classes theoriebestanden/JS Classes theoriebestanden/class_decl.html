@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Class declaration</title>
+    <link rel="shortcut icon" href="#">
+</head>
+
+<body>
+    <script>
+        // Hoisting --> class declaration zijn NIET hoisted, function declarations wel!
+        // const boek_2 = new Boek("Titel 2", "Auteur 2"); // ReferenceError
+
+        // class declaratie
+        class Boek {
+            constructor(titel, auteur) {
+                this.titel = titel;
+                this.auteur = auteur;
+            }
+        }
+
+        const boek_1 = new Boek("JavaSript 2021", "Roger Frans") // Instantie boek_1 aanmaken
+
+        console.log(boek_1);
+    </script>
+</body>
+
+</html>

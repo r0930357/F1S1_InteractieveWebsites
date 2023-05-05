@@ -21,9 +21,9 @@
                     <div class="mb-3">
                         <label for="result" class="form-label">Testresultaat</label>
                         <select class="form-select" id="result" name="result" required>
-                            <option value="" selected></option>
-                            <option value=""></option>
-                            <option value=""></option>
+                            <option value="selectie" selected disabled>selectie</option>
+                            <option value="positief">positief</option>
+                            <option value="negatief">negatief</option>
                           </select>
                     </div>
                     <button type="button" id="toevoegen" class="btn btn-success">Toevoegen</button>
@@ -36,7 +36,40 @@
         </div>
     </main>
     <script>
-	
+    
+	class CoronaTest {
+        constructor(name, result) {
+            this.name = name;
+            this.result = result;
+        }
+
+        overzicht() {
+                return `${this.name} is ${this.result} getest op Covid-19`;
+            }
+    }
+
+    function resultaatToevoegen() {
+        let name = document.querySelector('#name');
+        let result = document.querySelector('#result');
+        let coronatest = new CoronaTest(name.value, result.value);
+        addToList(coronatest.overzicht());
+    }
+        
+    document.querySelector('#toevoegen').addEventListener('click', resultaatToevoegen);
+    
+        const ul = document.querySelector('#list');
+        function addToList(message) {
+            let li = document.createElement('li');
+            let name = document.querySelector('#name');
+            if (message.includes('selectie') || name.value == '') {
+                alert("Voer een geldig testresultaat in")
+            } else {
+                li.classList.add('list-group-item');
+                li.textContent = message;
+                ul.appendChild(li);
+            }
+        }
+    
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 </body>

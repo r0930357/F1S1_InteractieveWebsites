@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>onload</title>
+    <link rel="shortcut icon" href="#">
+</head>
+
+<body>
+    <!-- onload="mijnFunctie()" -->
+    <div id="status"></div>
+
+    <script>
+        const body = document.getElementsByTagName("body")[0];
+
+        body.addEventListener("load", mijnFunctie(), false);
+        // window.addEventListener('DOMContentLoaded', mijnFunctie, false);
+
+        function mijnFunctie() {
+            document.getElementById("status").innerHTML = "De pagina is geladen.";
+            //alert("De pagina werd geladen");
+        }
+    </script>
+</body>
+
+</html>

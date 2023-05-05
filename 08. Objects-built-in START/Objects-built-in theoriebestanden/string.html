@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="nl">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String object</title>
+    <link href="css/style.css" rel="stylesheet">
+    <style>
+        #email {
+            width: 200px;
+        }
+        
+        .highlightYellow {
+            background-color: #FF6;
+        }
+        
+        .highlightRed {
+            background-color: #F66;
+        }
+    </style>
+    <link rel="shortcut icon" href="#">
+</head>
+
+<body>
+    <main class="container">
+        <h1>String object</h1>
+        <section>
+            <h2>Gecodeerd mailadres</h2>
+            <label for="email">Mailadres: </label>
+            <div class="input">
+                <input type="text" id="email" placeholder="mailadres">
+            </div>
+            <p id="resultaat"></p>
+        </section>
+        <h2>String replace met regex</h2>
+        <h3>Originele tekst:</h3>
+        <section id="section2" contenteditable title="Bewerk deze tekst" class="message-bar background-gray-light">
+            <p>JavaScript is een scripttaal die veel gebruikt wordt om webpagina's interactief te maken en webapplicaties te ontwikkelen. De syntaxis van JavaScript vertoont overeenkomsten met de programmeertaal Java. </p>
+            <p>Events vormen het hart van een JavaScript-pagina. Event-handling staat toe dat de JavaScript opdrachten op het juiste moment worden uitgevoerd, wanneer de juiste gebeurtenis heeft plaatsgevonden: <br> Een berekening wordt uitgevoerd wanneer
+                een gebruiker op een knop klikt, een figuur verandert wanneer de gebruiker er met de muis over beweegt, een animatie wordt gestart wanneer de pagina geladen is ... </p>
+            <p>Een functie kan je in JavaScript gebruiken om een groep opdrachten te kunnen uitvoeren met een aangegeven naam. De opdrachten of statements die binnen de functie staan worden uitgevoerd wanneer de functie wordt aangeroepen.Een functie kan
+                waarden ontvangen en retourneren naar de plaats van aanroep. </p>
+        </section>
+        <p>
+            <button class="button" id="vervang">Vervang 'JavaScript' door 'jQuery'</button>
+        </p>
+        <h3>Aangepaste tekst:</h3>
+        <section id="section3" class="message-bar background-gray-light"></section>
+    </main>
+    <script>
+        // Voorbeeld constructor object String vs primitive string
+        let a = new String('Thomas More');
+        let b = 'Thomas More';
+        console.log('Object String:', a);
+        console.log('Primitive string: ', b);
+
+
+        // Voorbeeld 1
+        checkMail = () => {
+            let resultaat = "";
+            let mailadres = document.querySelector('#email').value;
+
+            // zoekt naar karakter(s) in een string, start op 0, -1 bij niet gevonden
+            if (mailadres.length == 0) {
+                resultaat = "Gelieve <mark>een mailadres</mark> in te vullen";
+            } else if (mailadres.search('@') == -1) {
+                resultaat = "Dit is <mark>geen geldig mailadres</mark>";
+            } else if ((mailadres.search('@') >= 0) && (mailadres.indexOf("@") > mailadres.lastIndexOf("."))) {
+                resultaat = "Het punt staat voor het @-teken. Dit is <mark>geen geldig mailadres</mark>";
+            } else {
+                //mailadres = mailadres.replace('@', ' AT ');
+                mailadres = mailadres.replace('@', ' AT ').replaceAll('.', ' DOT ');
+                resultaat = 'Gecodeerd adres: ' + mailadres;
+            }
+            document.querySelector('#resultaat').textContent = resultaat;
+        }
+
+
+
+        // Voorbeeld 2
+        vervang = () => {
+            let el = document.querySelector('#section2').innerHTML;
+            el = el.allReplace("JavaScript", "<span class='highlightRed'>jQuery</span>");
+            document.querySelector('#section3').innerHTML = el;
+            highLight();
+        }
+
+        highLight = () => {
+            let el = document.querySelector('#section2').innerHTML;
+            el = el.allReplace("JavaScript", "<span class='highlightYellow'>JavaScript</span>");
+            document.querySelector('#section2').innerHTML = el;
+        }
+
+        /* Voorbeeld aanmaken van een eigen property op een String object */
+        String.prototype.allReplace = function(zoek, vervang) {
+            let retStr = this; // this hoort bij jq, deze bevat de tekst als een object, dus te benaderen via [] 
+
+            // g staat voor find all matches"
+            return retStr.replace(new RegExp(zoek, 'g'), vervang);
+        }
+
+
+        // EventListeners aanmaken
+        document.querySelector('#vervang').addEventListener('click', vervang);
+        document.querySelector('#email').addEventListener('blur', checkMail);
+    </script>
+</body>
+
+</html>

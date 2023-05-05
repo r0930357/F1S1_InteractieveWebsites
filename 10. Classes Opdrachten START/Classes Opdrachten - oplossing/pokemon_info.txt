@@ -1,0 +1,7 @@
+Pokémon_attack.html
+- Versie 1, de pokémons kunnen elkaar aanvallen.
+Pokémon_hp.html
+- Versie 2, een hitpointsbar toont hoeveel leven de pokémon nog heeft.
+Pokémon_hyperpotion.html
+- Versie 3, elke speler krijgt 5 hyper potions om te gebruiken. (geeft +50hp aan een pokémon)
+

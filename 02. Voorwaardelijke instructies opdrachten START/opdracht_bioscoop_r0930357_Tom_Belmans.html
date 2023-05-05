@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="nl">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="#">
+    <title>Les 2: Opdracht Bioscoop</title>
+</head>
+
+<body>
+
+    <script>
+
+        let leeftijd = parseInt(prompt("Geef een getal in"))
+
+        switch (true) {
+            case leeftijd < 5:
+                alert("Gratis")
+                break;
+            case leeftijd <= 12: 
+                alert("Halve prijs")
+                break;
+            case leeftijd <= 55:
+                alert("Volle prijs")
+                break;
+            case leeftijd > 55:
+                alert("Gratis")
+                break;
+        }
+
+    </script>
+</body>
+
+</html>

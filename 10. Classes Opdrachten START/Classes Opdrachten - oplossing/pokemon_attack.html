@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <title>Pokémon</title>
+  </head>
+
+  <body>
+    <main class="container">
+      <h1>Pokémon</h1>
+      <p class="lead">Gotta catch 'em all</p>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h2>Player 1</h2>
+              <select class="form-select mb-1" id="player1-pokemon">
+                <option value="-1" selected>Kies je pokémon</option>
+              </select>
+              <img
+                src="img/pokeball.png"
+                class="mx-auto d-block"
+                id="player1-img"
+              />
+              <table class="table">
+                <tr>
+                  <th>HP (resterend)</th>
+                  <td id="player1-hp">-</td>
+                </tr>
+                <tr>
+                  <th>Type</th>
+                  <td id="player1-type">-</td>
+                </tr>
+                <tr>
+                  <th>Attack (min)</th>
+                  <td id="player1-min">-</td>
+                </tr>
+                <tr>
+                  <th>Attack (max)</th>
+                  <td id="player1-max">-</td>
+                </tr>
+              </table>
+              <div class="d-grid">
+                <button class="btn btn-primary" id="player1-attack">
+                  Aanvallen
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h2>Player 2</h2>
+              <select class="form-select mb-1" id="player2-pokemon">
+                <option value="-1" selected>Kies je pokémon</option>
+              </select>
+              <img
+                src="img/pokeball.png"
+                class="mx-auto d-block"
+                id="player2-img"
+              />
+              <table class="table">
+                <tr>
+                  <th>HP (resterend)</th>
+                  <td id="player2-hp">-</td>
+                </tr>
+                <tr>
+                  <th>Type</th>
+                  <td id="player2-type">-</td>
+                </tr>
+                <tr>
+                  <th>Attack (min)</th>
+                  <td id="player2-min">-</td>
+                </tr>
+                <tr>
+                  <th>Attack (max)</th>
+                  <td id="player2-max">-</td>
+                </tr>
+              </table>
+              <div class="d-grid">
+                <button class="btn btn-primary" id="player2-attack">
+                  Aanvallen
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col mt-3">
+          <div class="card text-center">
+            <div class="card-body" id="actioninfo">-</div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script>
+      class Pokemon {
+        constructor(name, type, attackMin, attackMax, hitpoints, image) {
+          this.name = name
+          this.type = type
+          this.attackMin = attackMin
+          this.attackMax = attackMax
+          this.hitpoints = hitpoints
+          this.currentHP = hitpoints
+          this.image = image
+        }
+        Attack() {
+          let miss = Math.floor(Math.random() * 4) + 1
+          if (miss == 1) {
+            console.log(this.name + " missed his/her attack!")
+            return 0
+          }
+          return Math.floor(
+            Math.random() *
+              (Math.floor(this.attackMax) - Math.ceil(this.attackMin) + 1) +
+              Math.ceil(this.attackMin)
+          )
+        }
+        HP() {
+          return `${this.hitpoints} (${this.currentHP})`
+        }
+      }
+      class Player {
+        constructor(name, pokemon) {
+          this.name = name
+          this.prefix = name.toLowerCase().replace(/\s/g, "")
+          this.pokemon = pokemon
+        }
+        get ActivePokemon() {
+          let selected = document.querySelector(`#${this.prefix}-pokemon`).value
+          if (selected == -1) return null
+          return this.pokemon[selected]
+        }
+      }
+      // variabelen
+      const player1 = new Player("Player 1", [])
+      const player2 = new Player("Player 2", [])
+      const actioninfo = document.querySelector("#actioninfo")
+      // aanvallen pokemon
+      attack = (playerAttack, playerDefend) => {
+        const pokemonAttack = playerAttack.ActivePokemon
+        const pokemonDefend = playerDefend.ActivePokemon
+        if (pokemonAttack.currentHP <= 0)
+          return alert(`${pokemonAttack.name} has fainted, you can't attack!`)
+
+        const damage = pokemonAttack.Attack()
+        pokemonDefend.currentHP -= damage
+        update(playerDefend)
+
+        if (pokemonDefend.currentHP <= 0)
+          return (actioninfo.textContent = `${pokemonAttack.name} attacks with ${damage} damage, ${pokemonDefend.name} has fainted.`)
+        return (actioninfo.textContent = `${pokemonAttack.name} attacks with ${damage} damage, ${pokemonDefend.name} is left with ${pokemonDefend.currentHP} hitpoints.`)
+      }
+      // update pokemon
+      update = (player) => {
+        if (player.ActivePokemon == null) return
+        document.querySelector("#" + player.prefix + "-img").src =
+          "img/" + player.ActivePokemon.image
+        document.querySelector("#" + player.prefix + "-type").textContent =
+          player.ActivePokemon.type
+        document.querySelector("#" + player.prefix + "-min").textContent =
+          player.ActivePokemon.attackMin
+        document.querySelector("#" + player.prefix + "-max").textContent =
+          player.ActivePokemon.attackMax
+        document.querySelector("#" + player.prefix + "-hp").textContent =
+          player.ActivePokemon.HP()
+      }
+      // pokémon aanmaken
+      player1.pokemon.push(
+        new Pokemon("Squirtle", "Water", 20, 45, 100, "Squirtle.gif")
+      )
+      player1.pokemon.push(
+        new Pokemon("Bulbasaur", "Grass", 25, 40, 120, "Bulbasaur.gif")
+      )
+      player1.pokemon.push(
+        new Pokemon("Charmander", "Fire", 30, 55, 80, "Charmander.gif")
+      )
+      player1.pokemon.push(
+        new Pokemon("Onix", "Ground", 20, 30, 150, "Onix.gif")
+      )
+      player2.pokemon.push(
+        new Pokemon("Squirtle", "Water", 20, 45, 100, "Squirtle.gif")
+      )
+      player2.pokemon.push(
+        new Pokemon("Bulbasaur", "Grass", 25, 40, 120, "Bulbasaur.gif")
+      )
+      player2.pokemon.push(
+        new Pokemon("Charmander", "Fire", 30, 55, 80, "Charmander.gif")
+      )
+      player2.pokemon.push(
+        new Pokemon("Onix", "Ground", 20, 30, 150, "Onix.gif")
+      )
+      // pokémon laden in select
+      player1.pokemon.forEach((pokemon, index) => {
+        let opt = document.createElement("option")
+        opt.value = index
+        opt.innerHTML = pokemon.name
+        document
+          .querySelector("#" + player1.prefix + "-pokemon")
+          .appendChild(opt)
+      })
+      player2.pokemon.forEach((pokemon, index) => {
+        let opt = document.createElement("option")
+        opt.value = index
+        opt.innerHTML = pokemon.name
+        document
+          .querySelector("#" + player2.prefix + "-pokemon")
+          .appendChild(opt)
+      })
+      // event listeners
+      document
+        .querySelector("#player1-pokemon")
+        .addEventListener("change", () => update(player1))
+      document
+        .querySelector("#player2-pokemon")
+        .addEventListener("change", () => update(player2))
+      document
+        .querySelector("#player1-attack")
+        .addEventListener("click", () => attack(player1, player2))
+      document
+        .querySelector("#player2-attack")
+        .addEventListener("click", () => attack(player2, player1))
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

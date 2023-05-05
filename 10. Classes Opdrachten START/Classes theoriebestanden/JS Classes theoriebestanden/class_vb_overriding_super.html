@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Titel</title>
+    <link rel="shortcut icon" href="#">
+</head>
+
+<body>
+    <script>
+        class PrinterClass {
+            doPrint() {
+                console.log("doPrint() from Parent called…");
+            }
+        }
+        class StringPrinter extends PrinterClass {
+            doPrint() {
+                super.doPrint(); // We roepen eventueel ook dezelfde methode op van de parent class
+                console.log("doPrint() is printing a string…");
+            }
+        }
+
+        let obj = new StringPrinter();
+        obj.doPrint();
+    </script>
+</body>
+
+</html>

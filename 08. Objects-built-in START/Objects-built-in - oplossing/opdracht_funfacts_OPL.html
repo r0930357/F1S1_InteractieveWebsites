@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="nl">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Opdrachten les 6: built-in objecten</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="#">
+</head>
+
+<body>
+    <div class="container">
+
+        <h3>Opdracht geboortedatum FunFacts</h3>
+
+        <div class="row">
+            <div class="col-md-12">
+                <p id="result"></p>
+
+                <button class="btn btn-primary btn-lg  mb-2" id="back" type="button">Opnieuw</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        funFacts = () => {
+            let el = document.getElementById('result');
+
+            //De geboortedatum uit localStorage halen
+            let geboortedatum = new Date(localStorage.getItem("gbdate"));
+            let nu = new Date();
+            localStorage.removeItem("gbdate");
+
+            let gbdag = new Intl.DateTimeFormat('nl-BE', {
+                weekday: 'long'
+            }).format(geboortedatum)
+            el.innerHTML += "Je bent geboren op " + gbdag + " " + new Intl.DateTimeFormat('nl-BE').format(
+                geboortedatum) + '<br>';
+
+            //De huidige datum
+            el.innerHTML += "Vandaag is het " + new Intl.DateTimeFormat('nl-BE', {
+                weekday: 'long',
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric'
+            }).format(nu) + '<br>';
+
+            // Het aantal geleefde dagen berekenen  
+            let diffInTime = nu.getTime() - geboortedatum.getTime();
+            // We verminderen de datum van nu met de gbdat in milliseconden
+            let diffInDays = diffInTime / (1000 * 3600 * 24); // We zetten de milliseconden om naar dagen 
+            el.innerHTML += "Je loopt al " + Math.round(diffInDays) + " dagen op deze wereldbol rond. <br>";
+
+            // Je vermoedelijke sterfdatum uitrekenen
+            const gemJaren = 80.3; // man, vrouw 84.4
+
+            let totDagen = 365 * gemJaren; // 31243.99 dagen bijvoorbeeld
+            let nogTeLevenDagen = Math.round(totDagen - diffInDays) * 24 * 3600 *
+                1000; // in milliseconden 1300924800000
+            let teLeven = new Date(nu.getTime() + nogTeLevenDagen); // nieuwe datum maken op basis van milliseconden
+
+            el.innerHTML += "Je zal vermoedelijk sterven op " + new Intl.DateTimeFormat('nl-BE').format(teLeven) +
+                '<br>';
+        }
+
+        goBack = () => {
+            location.href(history.back());
+        }
+
+        document.querySelector('#back').addEventListener('click', goBack);
+        document.addEventListener('DOMContentLoaded', funFacts);
+    </script>
+
+</body>
+
+</html>

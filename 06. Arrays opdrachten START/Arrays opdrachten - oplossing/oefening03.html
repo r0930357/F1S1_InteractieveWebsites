@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="nl">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oefening 3</title>
+</head>
+
+<body>
+    <div id="resultaat"></div>
+    <div id="resultaatArrow"></div>
+
+    <script>
+        const res = document.getElementById("resultaat");
+        const res_arrow = document.getElementById("resultaatArrow");
+
+        let nummers = new Array(10).fill(0); // [20, 40, 60, 80, 85];
+
+        /*
+        nummers.forEach(element => {
+            console.log(element);
+        });
+        */
+
+        for (let i = 0; i < nummers.length; i++) {
+            nummers[i] = randomIntFromInterval(40, 100); // Willekeurige getallen tussen 40 en 100
+        }
+
+        // Oplossing traditioneel met function
+        res.innerHTML = nummers.map(omzettenNaar20);
+
+        function omzettenNaar20(num) {
+            return Math.round(num / 5);
+        }
+
+
+        // Oplossing via arrow function
+        res_arrow.innerHTML = nummers.map(x => Math.round(x / 5));
+
+
+        // Functie voor random waarden te genereren tussen min en max waarden
+        function randomIntFromInterval(min, max) { // min and max included 
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        }
+    </script>
+</body>
+
+</html>
