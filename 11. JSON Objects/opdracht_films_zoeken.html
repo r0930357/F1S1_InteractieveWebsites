@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="nl">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- indien javascript in de header -> defer toevoegen aan script -->
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+
+    <link rel="shortcut icon" href="#">
+
+    <title>Opdracht - JSON XMLHttpRequest - OMDB API</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Films zoeken (OMDB API)</h1>
+                <img src="https://media.tenor.com/fKIG2kiLVPgAAAAC/this-is-fine-its-fine.gif" alt="It's fine">
+                <form id="searchForm" class="form-inline">
+                    <div class="form-group m-2">
+                        <label for="zoekterm">Zoekterm</label>
+                        <input type="text" class="form-control mx-2" id="zoekterm" name="zoekterm">
+                    </div>
+                    <button type="submit" id="buttonZoeken" class="btn btn-primary m-2">Zoeken</button>
+                </form>
+
+            </div>
+        </div>
+
+        <div class="row m-2">
+            <div class="col-md-12">
+                <div class="row p-2" id="divMsg"></div>
+                <div class="row p-3" id="divResult"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+        let divMsg = document.querySelector("#divMsg");
+        let divResult = document.querySelector("#divResult");
+        let searchData = document.querySelector("#zoekterm");
+        let searchForm = document.querySelector("#searchForm");
+
+        myRequest = (search) => {
+            let xhr = new XMLHttpRequest();
+            const API_key = "c8ee8bc6";
+
+            xhr.open("GET", `http://www.omdbapi.com/?s=${search}&type=movie&apikey=${API_key}`, true);
+
+            xhr.send();
+
+            xhr.onload = () => { //we krijgen respons
+                if(xhr.readyState == xhr.DONE) {
+                    if (xhr.status != 200) {
+                        showMessage("Nok", "Error: " + xhr.status + ": " + xhr.statusText)
+                    } else {
+                        const movies = JSON.parse(xhr.responseText);
+                        if (movies.Response == "True") {
+                            // kaartjes maken
+                                showMessage('ok', 'Aantal gevonden: ' + movies.totalResults)
+                                renderMovies(movies);
+                        } else {
+                            showMessage('Nok', + movies.Error)
+                        }
+                    }
+                }
+            }
+
+            xhr.onerror = () => {
+                showMessage("Nok", "Request failed")
+            }
+
+        }
+
+        renderMovies = (movies) => {
+                divResult.innerHTML = "";
+
+                movies.Search.forEach(item => {
+                    divResult.innerHTML += `<div class="col-md-4 col-sm-6">
+                                                <div class="card mb-3">
+                                                    <img src="${item.Poster}" class="img-responsive">
+                                                    <div class="card-body">
+                                                        <p class="card-text">${item.Title}</p>
+                                                        <p class="text-muted">${item.Year}</p>
+                                                    </div>
+                                                </div>
+                                            </div>`
+                });
+        }
+
+        validateSearch = () => {
+                if (searchData.value.length <= 2) {
+                    alert("Deze zoekopdracht is te kort")
+                    return false;
+                }
+                
+                if (searchData.value.length > 15) {
+                    alert("Deze zoekopdracht is te lang")
+                    return false;
+                }
+
+                return true;
+            }
+        
+        showMessage = (type, msg) => {
+            if (type == "ok") {
+                divMsg.classList.add("alert-success");
+                divMsg.classList.remove("alert-danger");
+            } else {
+                divMsg.classList.add("alert-danger");
+                divMsg.classList.remove("alert-success");
+            }
+            divMsg.innerHTML = msg;
+        }
+
+        // Indien knop van het type="submit" ingedrukt wordt -> preventDefault() -> niet submitten
+        document.querySelector("#buttonZoeken").addEventListener('click', (e) => {
+            e.preventDefault();
+            if (validateSearch() == true) {
+                console.log("zoeken naar " + searchData.value);
+                myRequest(searchData.value);
+            }
+        })
+
+</script>
+</html>

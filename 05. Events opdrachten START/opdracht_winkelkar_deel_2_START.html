@@ -109,6 +109,7 @@
         let prijs = document.querySelector("#prijs");
         let totaal = document.querySelector("#totaal");
         let firstTime = true;
+        let winkelmand = 0;
 
         // Functies
         function addToList(invoer) {
@@ -124,7 +125,7 @@
             }
             let itemprijs = aantal.value * prijs.value
             let product = input_product.value + "(" + aantal.value + " X " + prijs.value + " = " + itemprijs + " euro)";
-            let winkelmand =+ itemprijs
+            winkelmand += itemprijs;
             if (product != "") {
                 addToList(product)
                 totaal.innerHTML = "€" + winkelmand ;

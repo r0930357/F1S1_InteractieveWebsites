@@ -118,6 +118,8 @@
         let prijs = document.querySelector("#prijs");
         let totaal = document.querySelector("#totaal");
         let firstTime = true;
+        let winkelmand = 0;
+        let korting = 0;
 
         // Functies
         function addToList(invoer) {
@@ -133,7 +135,6 @@
             }
             let itemprijs = aantal.value * prijs.value
             let product = input_product.value + "(" + aantal.value + " X " + prijs.value + " = " + itemprijs + " euro)";
-            let winkelmand = 0
             winkelmand += itemprijs;
             if (product != "") {
                 addToList(product)
@@ -148,8 +149,8 @@
             if ((code.value == "Niels") || (code.value == "Stijn") || (code.value == "Koen")) {
                 korting = totaal * 0.8;
                 totaalInfo.innerHTML = "Totaal (met 20% korting)";
-                totaal.innerHTML = "€" + korting.value ;
-                alert("Je hebt een korting gekregen van 20% en je totaal is nu €" + korting.value + ".")
+                totaal = "€" + korting ;
+                alert("Je hebt een korting gekregen van 20% en je totaal is nu €" + korting + ".")
             }
             if (totaal == korting) {
                 alert("Je hebt al 20% korting gekregen.")

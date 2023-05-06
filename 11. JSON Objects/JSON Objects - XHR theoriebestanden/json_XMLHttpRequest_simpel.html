@@ -40,7 +40,7 @@
         // **** GEBRUIK JE EIGEN APPID ********
         xhr.open(
             "GET",
-            "http://api.openweathermap.org/data/2.5/weather?q=geel&units=metric&lang=nl&appid=4c4e7b6d2f3b3bb08edae6542c63e6e2",
+            "http://api.openweathermap.org/data/2.5/weather?q=geel&units=metric&lang=nl&appid=2ac6474f7e17fbbe5b53fab41772e4f2",
             true
         );
 
@@ -62,7 +62,8 @@
                 }
             }
         };
-
+        
+        // Fial-safe: indien de welbpagina niet bereikbaar is, geeft de browser een foutmelding
         xhr.onerror = function() {
             // Wijzig de url in http://openweathermap.org i.p.v. http://api.openweathermap.org
             divRes.innerHTML = "Request failed";
