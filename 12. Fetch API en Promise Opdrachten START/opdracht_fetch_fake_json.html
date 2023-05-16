@@ -10,7 +10,11 @@
     <link rel="shortcut icon" href="#">
 
     <title>Opdracht - Fecth & Promise - Lijst users</title>
-
+    <style>
+        .highlight {
+            background-color: yellow;
+        }
+    </style>
 
 </head>
 
@@ -24,9 +28,33 @@
 </body>
 
 <script>
-    /*
-            schrijf hier je script
-           */
+    
+    // API = https://jsonplaceholder.typicode.com/users
+    
+    let last_li = null
+
+    fetch("https://jsonplaceholder.typicode.com/users")
+    .then((response) => response.json())
+    .then((json) => {
+        //console.log(json)
+        let lijst = document.querySelector('#lijst')
+        json.forEach((element) => {
+            //console.log(element)
+            let li = document.createElement('li')
+            li.textContent = element.name
+            lijst.appendChild(li)
+        })
+    })
+    
+    document.querySelector('#lijst').addEventListener('mouseover', (event) => {
+        if (last_li != null && last_li != event.target) {
+            last_li.classList.remove("highlight")
+        }
+        if (event.target.tagName == "LI") {
+                event.target.classList.add("highlight")
+                last_li = event.target
+            }
+    })
 </script>
 
 </html>

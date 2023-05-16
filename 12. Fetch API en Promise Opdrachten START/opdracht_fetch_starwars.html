@@ -23,9 +23,42 @@
 </body>
 
 <script>
-    /*
-            schrijf hier je script
-           */
-</script>
 
+    // Javascript is voor masochisten
+    // API = https://swapi.dev/api/people/
+
+    let devErr = document.querySelector("#divErr")
+    let starWarsPeopleList = document.querySelector("#starWarsPeopleList")
+
+    fetch("https://swapi.dev/api/people/")
+    .then((response) => {
+        if (!response.ok || response.status === 404) {
+            return Promise.reject({
+                status: response.status,
+                statusText : response.statusText
+            })
+        }
+        return response.json()
+    })
+    .then((json) => {
+        //console.log(json.results)
+        let characters = json.results
+        let res = ""
+        
+        for (c of characters) {
+            let li = document.createElement("li")
+            li.classList.add("list-group-item")
+            li.textContent = `${c.name} ${c.gender == "n/a" ? "" : c.gender}`
+            if (c.gender == "n/a") {
+                res = `${c.name}`
+            } else {
+                res = c.name + " (" + c.gender + ")"
+            }
+            li.textContent = res
+            starWarsPeopleList.appendChild(li)
+        }
+    })
+    .catch((error) => (divErr.textContent = error.status))
+
+</script>
 </html>

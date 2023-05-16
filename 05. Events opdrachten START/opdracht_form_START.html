@@ -64,7 +64,7 @@
                             <div class="mb-3">
                                 <label for="kleur" class="form-label">Favoriete kleur</label>
                                 <select class="form-select" id="kleur">
-                                    <option selected>Kies een kleur</option>
+                                    <option selected disabled>Kies een kleur</option>
                                     <option value="Groen">Groen</option>
                                     <option value="Blauw">Blauw</option>
                                     <option value="Rood">Rood</option>
@@ -96,7 +96,30 @@
         </div>
     </main>
     <script>
-        // code..
+        // Delcaratie van variabelen => inputvelden
+        let voornaam_input = document.querySelector("#voornaam")
+        let familienaam_input = document.querySelector("#familienaam")
+        let kleur_input = document.querySelector("#kleur")
+
+        // Delcaratie van variabelen => outputvelden
+        let volledigeNaam_field = document.querySelector("#volledigeNaam")
+        let favorieteKleur_field = document.querySelector("#favorieteKleur")
+        
+        // Arrow functies
+        let updateVolledigeNaam = () => {
+            volledigeNaam_field.innerHTML = voornaam_input.value + " " + familienaam_input.value
+        }
+
+        let updatefavorieteKleur = () => {
+            favorieteKleur_field.innerHTML = kleur_input.value
+        }
+
+        // Eventlisteners
+        voornaam_input.addEventListener("keyup", updateVolledigeNaam);
+        familienaam_input.addEventListener("keyup", updateVolledigeNaam);
+        kleur_input.addEventListener("change", updatefavorieteKleur);
+
+
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous">
     </script>

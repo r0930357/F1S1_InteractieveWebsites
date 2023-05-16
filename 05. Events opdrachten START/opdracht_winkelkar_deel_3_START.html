@@ -147,10 +147,10 @@
             let code = document.querySelector("#code");
             let totaalInfo = document.querySelector("#totaalInfo");
             if ((code.value == "Niels") || (code.value == "Stijn") || (code.value == "Koen")) {
-                korting = totaal * 0.8;
+                korting = winkelmand * 0.8;
                 totaalInfo.innerHTML = "Totaal (met 20% korting)";
-                totaal = "€" + korting ;
-                alert("Je hebt een korting gekregen van 20% en je totaal is nu €" + korting + ".")
+                totaal.innerHTML = "€" + korting.toFixed(2);
+                alert("Je hebt een korting gekregen van 20% en je totaal is nu €" + korting.toString() + ".")
             }
             if (totaal == korting) {
                 alert("Je hebt al 20% korting gekregen.")
